@@ -44,7 +44,8 @@ build:
    - docker build .
 ```
 
-![Screenshot_4.jpg](https://github.com/reocoker85/8-01-git-hw/blob/main/8-02-CICD-hw/img/Screenshot_4.jpg)
+![4.png](https://github.com/reocoker85/8-01-git-hw/blob/main/8-03-GitLab/img/4.png)
+![5.png](https://github.com/reocoker85/8-01-git-hw/blob/main/8-03-GitLab/img/5.png)
 
 
 ---
