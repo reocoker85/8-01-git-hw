@@ -1,15 +1,13 @@
-# Домашнее задание к занятию "Что такое DevOps. СI/СD" - Комиссаров Игорь
+# Домашнее задание к занятию "GitLab" - Комиссаров Игорь
 
 ---
 
 Задание 1
 
- Установите себе jenkins по инструкции из лекции или любым другим способом из официальной документации. Использовать Docker в этом задании нежелательно.
- Установите на машину с jenkins golang.
- Используя свой аккаунт на GitHub, сделайте себе форк репозитория. В этом же репозитории находится дополнительный материал для выполнения ДЗ.
- Создайте в jenkins Freestyle Project, подключите получившийся репозиторий к нему и произведите запуск тестов и сборку проекта go test . и docker build ..
-
-В качестве ответа пришлите скриншоты с настройками проекта и результатами выполнения сборки.
+Разверните GitLab локально, используя Vagrantfile и инструкцию, описанные в этом репозитории.
+Создайте новый проект и пустой репозиторий в нём.
+Зарегистрируйте gitlab-runner для этого проекта и запустите его в режиме Docker. Раннер можно регистрировать и запускать на той же виртуальной машине, на которой запущен GitLab.
+В качестве ответа в репозиторий шаблона с решением добавьте скриншоты с настройками раннера в проекте.
 
 ![Screenshot_1.jpg](https://github.com/reocoker85/8-01-git-hw/blob/main/8-02-CICD-hw/img/Screenshot_1.jpg)
 ![Screenshot_2.jpg](https://github.com/reocoker85/8-01-git-hw/blob/main/8-02-CICD-hw/img/Screenshot_2.jpg)
@@ -20,9 +18,12 @@
 
 Что нужно сделать:
 
-Создайте новый проект pipeline.
-Перепишите сборку из задания 1 на declarative в виде кода.
-В качестве ответа пришлите скриншоты с настройками проекта и результатами выполнения сборки.
+Запушьте репозиторий на GitLab, изменив origin. Это изучалось на занятии по Git.
+Создайте .gitlab-ci.yml, описав в нём все необходимые, на ваш взгляд, этапы.
+В качестве ответа в шаблон с решением добавьте:
+
+файл gitlab-ci.yml для своего проекта или вставьте код в соответствующее поле в шаблоне;
+скриншоты с успешно собранными сборками.
 
 ```
 pipeline {
@@ -53,43 +54,50 @@ pipeline {
 
 Задание 3
 
-Что нужно сделать:
+Измените CI так, чтобы:
 
-Установите на машину Nexus.
-Создайте raw-hosted репозиторий.
-Измените pipeline так, чтобы вместо Docker-образа собирался бинарный go-файл. Команду можно скопировать из Dockerfile.
-Загрузите файл в репозиторий с помощью jenkins.
-В качестве ответа пришлите скриншоты с настройками проекта и результатами выполнения сборки.
+этап сборки запускался сразу, не дожидаясь результатов тестов;
+тесты запускались только при изменении файлов с расширением *.go.
+В качестве ответа добавьте в шаблон с решением файл gitlab-ci.yml своего проекта или вставьте код в соответсвующее поле в шаблоне.
 ```
-pipeline {
- agent any
- stages {
-  stage('Git') {
-   steps {git 'https://github.com/reocoker85/sdvps-materials.git'
-           branch 'main'}
-  }
-  stage('Test') {
-   steps {
-    sh '/usr/local/go/bin/go test .'
-   }
-  }
-  stage('Build') {
-   steps {
-    sh '/usr/local/go/bin/go build -o hello-world .'
-    archiveArtifacts artifacts: '**/hello-world' , fingerprint: true
-   }
-  }
-  stage('Push') {
-   steps {
-    sh 'curl -v -u admin:ae37bn67 --upload-file hello-world  http://51.250.86.130:8081/repository/my_repo/hello-world '
-   }
-  }
- }
-}
+stages:
+  - test
+  - build
+
+test:
+  stage: test
+  image: golang:1.17
+  script:
+   - go test .
+
+build:
+  stage: build
+  needs: []
+  image: docker:latest
+  script:
+   - docker build .
+```
+```
+stages:
+  - test
+  - build
+
+test:
+  stage: test
+  rules:
+   - changes:
+      - "*.go"
+  image: golang:1.17
+  script:
+   - go test .
+
+build:
+  stage: build
+  image: docker:latest
+  script:
+   - docker build .
 ```
 
-![Screenshot_5.jpg](https://github.com/reocoker85/8-01-git-hw/blob/main/8-02-CICD-hw/img/Screenshot_5.jpg)
-![Screenshot_6.jpg](https://github.com/reocoker85/8-01-git-hw/blob/main/8-02-CICD-hw/img/Screenshot_6.jpg)
 
 ---
 
