@@ -27,25 +27,21 @@
  * скриншоты с успешно собранными сборками.
 
 ```
-pipeline {
- agent any
- stages {
-  stage('Git') {
-   steps {git 'https://github.com/reocoker85/sdvps-materials.git'
-           branch 'main'}
-  }
-  stage('Test') {
-   steps {
-    sh '/usr/local/go/bin/go test .'
-   }
-  }
-  stage('Build') {
-   steps {
-    sh 'docker build . -t ubuntu-bionic:8082/hello-world:v$BUILD_NUMBER'
-   }
-  }
- }
-}
+stages:
+  - test
+  - build
+
+test:
+  stage: test
+  image: golang:1.17
+  script: 
+   - go test .
+
+build:
+  stage: build
+  image: docker:latest
+  script:
+   - docker build .
 ```
 
 ![Screenshot_4.jpg](https://github.com/reocoker85/8-01-git-hw/blob/main/8-02-CICD-hw/img/Screenshot_4.jpg)
