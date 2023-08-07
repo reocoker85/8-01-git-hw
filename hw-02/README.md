@@ -4,7 +4,7 @@
 
 ### Задание 1
 
-![1.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-01/img/1.png)
+![1.jpg](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-02/img/1.jpg)
 
 
 ---
