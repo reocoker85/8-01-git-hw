@@ -15,7 +15,7 @@
 ---
 
 ### Задание 4
-![3.jpg](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-02/img/3.jpg)
+![3.jpg](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-03/img/3.jpg)
 
 ---
 
