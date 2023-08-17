@@ -7,6 +7,7 @@
 Прикрепите к файлу README.md скриншот systemctl status prometheus, где будет написано: prometheus.service — Prometheus Service Netology Lesson 9.4 — [Ваши ФИО]
 
 ![1.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-04/img/1.png)
+
 ---
 
 ### Задание 2
@@ -16,28 +17,20 @@
 Прикрепите к файлу README.md скриншот systemctl status node-exporter, где будет написано: node-exporter.service — Node Exporter Netology Lesson 9.4 — [Ваши ФИО]
 
 ![2.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-04/img/2.png)
+
 ---
 
 ### Задание 3
 
-`Приведите ответ в свободной форме........`
+Подключите Node Exporter к серверу Prometheus.
 
-1.  https://github.com/reocoker85/homework/network
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+Прикрепите к файлу README.md скриншот конфигурации из интерфейса Prometheus вкладки Status > Configuration
 
-```
-Поле для вставки кода...
-....
-....
-....
-```
+Прикрепите к файлу README.md скриншот из интерфейса Prometheus вкладки Status > Targets, чтобы было видно минимум два эндпоинта
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)` 
+![3.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-04/img/3.png)
+
+![4.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-04/img/4.png)
 
 ---
 
