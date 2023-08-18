@@ -24,32 +24,21 @@
 
 ### Задание 3
 
-Подключите Node Exporter к серверу Prometheus.
+Активируйте экспортёр метрик в Docker и подключите его к Prometheus.
 
-Прикрепите к файлу README.md скриншот конфигурации из интерфейса Prometheus вкладки Status > Configuration
+приложите скриншот браузера с открытым эндпоинтом, а также скриншот списка таргетов из интерфейса Prometheus.
 
-Прикрепите к файлу README.md скриншот из интерфейса Prometheus вкладки Status > Targets, чтобы было видно минимум два эндпоинта
+![13.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-05/img/13.png)
 
-![3.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-04/img/3.png)
-
-![4.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-04/img/4.png)
+![14.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-05/img/14.png)
 
 ---
 
 ### Задание 4
 
-Установите Grafana.
+Создайте свой дашборд Grafana с различными метриками Docker и сервера, на котором он стоит.
 
-Прикрепите к файлу README.md скриншот левого нижнего угла интерфейса, чтобы при наведении на иконку пользователя были видны ваши ФИО
+Приложите скриншот, на котором будет дашборд Grafana с действующей метрикой
 
-![5.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-04/img/5.png)
+![15.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-05/img/15.png)
 
----
-
-### Задание 5
-
-Интегрируйте Grafana и Prometheus.
-
-Прикрепите к файлу README.md скриншот дашборда (ID:11074) с поступающими туда данными из Node Exporter
-
-![6.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-04/img/6.png)
