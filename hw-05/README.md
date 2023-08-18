@@ -2,21 +2,23 @@
 
 ### Задание 1
 
-Установите Prometheus.
+Создайте файл с правилом оповещения, как в лекции, и добавьте его в конфиг Prometheus.
 
-Прикрепите к файлу README.md скриншот systemctl status prometheus, где будет написано: prometheus.service — Prometheus Service Netology Lesson 9.4 — [Ваши ФИО]
+Погасите node exporter, стоящий на мониторинге, и прикрепите скриншот раздела оповещений Prometheus, где оповещение будет в статусе Pending
 
-![1.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-04/img/1.png)
+![10.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-05/img/10.png)
 
 ---
 
 ### Задание 2
 
-Установите Node Exporter.
+Установите Alertmanager и интегрируйте его с Prometheus.
 
-Прикрепите к файлу README.md скриншот systemctl status node-exporter, где будет написано: node-exporter.service — Node Exporter Netology Lesson 9.4 — [Ваши ФИО]
+Прикрепите скриншот Alerts из Prometheus, где правило оповещения будет в статусе Fireing, и скриншот из Alertmanager, где будет видно действующее правило оповещения
 
-![2.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-04/img/2.png)
+![11.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-05/img/11.png)
+
+![12.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-05/img/12.png)
 
 ---
 
