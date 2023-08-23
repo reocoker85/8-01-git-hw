@@ -16,25 +16,9 @@
 
 ### Задание 2
 
-`Приведите ответ в свободной форме........`
+![3.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-07/img/3.png)
 
-1.  https://github.com/reocoker85/homework/commit/0ae21cc21c64fc6425264ea95ed53254d0fd7e31
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
-
-```
-Поле для вставки кода...
-....
-....
-....
-```
-
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота 2](ссылка на скриншот 2)`
-
+![4.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-07/img/4.png)
 
 ---
 
@@ -63,20 +47,37 @@
 
 ### Задание 4
 
-`Приведите ответ в свободной форме........`
+![7.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-07/img/7.png)
 
-1.  https://github.com/reocoker85/homework/network
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+![8.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-07/img/8.png)
+ 
 
 ```
-Поле для вставки кода...
-....
-....
-....
+frontend example  # секция фронтенд
+        mode http
+        bind :8088
+        #default_backend web_servers
+        acl ACL_example1.com hdr(host) -i example1.com
+        acl ACL_example2.com hdr(host) -i example2.com
+        use_backend web_servers1 if ACL_example1.com
+        use_backend web_servers2 if ACL_example2.com
+
+backend web_servers1    # секция бэкенд
+        mode http
+        balance roundrobin
+        option httpchk
+        http-check send meth GET uri /index.html
+        server s1 127.0.0.1:7777 check
+        server s2 127.0.0.1:8888 check
+
+backend web_servers2    # секция бэкенд
+        mode http
+        balance roundrobin
+        option httpchk
+        http-check send meth GET uri /index.html
+        server s3 127.0.0.1:9999 check
+        server s4 127.0.0.1:11111 check
+
 ```
 
 `При необходимости прикрепитe сюда скриншоты
