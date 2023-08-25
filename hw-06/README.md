@@ -3,12 +3,10 @@
 
 ### Задание 1
 
-`Приведите ответ в свободной форме........`
-
-1. [https://github.com/reocoker85/homework/commit/49e9785623030da051ded41b99475875cb464e15](https://github.com/reocoker85/homeworks/blob/main/hw-06/homework.pkt)]
+[https://github.com/reocoker85/homework/commit/49e9785623030da051ded41b99475875cb464e15](https://github.com/reocoker85/homeworks/blob/main/hw-06/homework.pkt)]
 
 
-
+![1.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-06/img/1.png)
 
 ---
 
