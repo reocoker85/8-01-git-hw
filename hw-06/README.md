@@ -34,9 +34,8 @@ if [[ -f /var/www/html/index.nginx-debian.html ]] && ( nc -zv 10.0.2.50 80 &> /d
 else
     exit 1
 fi;
-
 ```
-онфигурационный файл keepalived:
+Конфигурационный файл keepalived:
 ```
 vrrp_script check {
        script "/etc/keepalived/check.sh"
@@ -59,13 +58,11 @@ vrrp_instance VI_1 {
                    check
         }
 }
-
-
 ```
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота 2](ссылка на скриншот 2)`
+![2.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-06/img/2.png)
 
+![3.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-06/img/3.png)
 
 ---
 
