@@ -76,3 +76,48 @@ vrrp_instance VI_1 {
 - Попробуйте выполнить настройку keepalived на третьем сервере и скорректировать при необходимости формулу так, чтобы плавающий ip адрес всегда был прикреплен к серверу, имеющему наименьшую нагрузку.
 - На проверку отправьте получившийся bash-скрипт и конфигурационный файл keepalived, а также скриншоты логов keepalived с серверов при разных нагрузках
 
+Bash-скрипт:
+
+```
+#!/bin/bash
+
+la=$(cat /proc/loadavg | cut -d ' ' -f 1)
+la=$(bc<<<$la*100 | cut -d '.' -f 1)
+if [[ $la -le 100 ]]; then
+  echo $((100 -$la)) > /etc/keepalived/result.txt
+else echo 1 > /etc/keepalived/result.txt;
+fi;
+```
+
+Конфигурационный файл keepalived:
+```
+track_file result {
+      file /etc/keepalived/result.txt
+}
+
+vrrp_instance VI_1 {
+        state MASTER
+        interface enp0s3
+        virtual_router_id 100
+        priority 150
+        advert_int 1
+
+        virtual_ipaddress {
+              10.0.2.50/24
+        }
+        track_file {
+              result weight 1
+    }
+}
+```
+Настраиваем cron:
+
+![6.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-06/img/6.png)
+
+Результаты:
+
+![4.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-06/img/4.png)
+
+![5.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-06/img/5.png)
+
+
