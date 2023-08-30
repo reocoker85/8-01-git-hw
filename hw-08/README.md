@@ -21,38 +21,9 @@
 Bash-скрипт:
 
 ```
-#!/bin/bash
 
-if [[ -f /var/www/html/index.nginx-debian.html ]] && ( nc -zv 10.0.2.50 80 &> /dev/null ) ; then
-    exit 0
-else
-    exit 1
-fi;
 ```
-Конфигурационный файл keepalived:
-```
-vrrp_script check {
-       script "/etc/keepalived/check.sh"
-       interval 3
-}
-vrrp_instance VI_1 {
-        state MASTER
-        interface enp0s3
-        virtual_router_id 100
-        priority 255
-        advert_int 1
 
-
-        virtual_ipaddress {
-              10.0.2.50/24
-        }
-
-
-        track_script {
-                   check
-        }
-}
-```
 
 ![2.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-06/img/2.png)
 
