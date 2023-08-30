@@ -42,16 +42,9 @@ fi;
 - Проверьте настройку, синхронизируя большой файл между двумя серверами
 - На проверку направьте команду и результат ее выполнения в виде скриншота
 
+![4.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-08/img/4.png)
 
-```
-
-```
-
-
-Настраиваем cron:
-
-![6.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-08/img/4.png)
-
+![5.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-08/img/5.png)
 
 
 ---
