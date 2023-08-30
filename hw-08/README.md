@@ -21,13 +21,19 @@
 Bash-скрипт:
 
 ```
+#!/bin/bash
+if rsync -azc --delete /home/reocoker/ /tmp/backup/ ;then
+  logger "Backup completed successfully"
+else logger "Failed to backup" ;
+fi;
 
 ```
 
+Настраиваем cron:
+![3.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-08/img/3.png)
 
-![2.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-06/img/2.png)
-
-![3.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-06/img/3.png)
+Проверяем лог:
+![2.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-08/img/2.png)
 
 ---
 
