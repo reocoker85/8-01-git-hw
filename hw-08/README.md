@@ -71,6 +71,8 @@ fi'
 
 ![7.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-08/img/7.png)
 
+![8.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-08/img/8.png)
+
 Bash-скрипт 2:
 
 ```
