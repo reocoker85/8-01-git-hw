@@ -54,4 +54,35 @@ fi;
 - Напишите скрипт управления резервными копиями, в нем можно выбрать резервную копию и данные восстановятся к состоянию на момент создания данной резервной копии.
 - На проверку направьте скрипт и скриншоты, демонстрирующие его работу в различных сценариях.
 
+Bash-скрипт 1:
 
+```
+!/bin/bash
+rsync -a --delete -e 'ssh' /home/reocoker/ reo2@10.0.2.7:/home/reo2/backup/full --backup --backup-dir=/home/reo2/backup/increment/$(date +%T)/
+ssh reo2@10.0.2.7 -t 'cd /home/reo2/backup/increment/ ;
+if [ $(ls | wc -l) -lt 5 ];then
+  echo "Less"
+else [ $(ls -t|awk "NR>5"|xargs rm -rf) ]
+  echo "Deleted"
+fi'
+
+```
+![6.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-08/img/6.png)
+
+![7.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-08/img/7.png)
+
+Bash-скрипт 2:
+
+```
+#!/bin/bash
+ssh reo2@10.0.2.7  'cd /home/reo2/backup/increment/
+echo "Choose backup:"
+ls
+read choose
+for folder in *;do
+  if [[ $choose == $folder ]];then
+     rsync -aP -e 'ssh' reo2@10.0.2.7:/home/reo2/backup/increment/$choose/ /home/reocoker/1/
+  fi
+done'
+
+```
