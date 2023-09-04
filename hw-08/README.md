@@ -68,7 +68,7 @@ fi'
 
 ```
 
-Список бэкапов на втрой машине:
+Список бэкапов на второй машине:
 
 ![6.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-08/img/6.png)
 
