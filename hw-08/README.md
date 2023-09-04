@@ -90,7 +90,7 @@ ls
 read choose
 for folder in *;do
   if [[ $choose == $folder ]];then
-     rsync -aP -e 'ssh' reo2@10.0.2.7:/home/reo2/backup/increment/$choose/ /home/reocoker/1/
+     rsync -aP -e 'ssh' /home/reo2/backup/increment/$choose/ reocoker@10.0.2.15:/home/reocoker/1/
   fi
 done'
 
