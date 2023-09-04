@@ -88,3 +88,6 @@ for folder in *;do
 done'
 
 ```
+![9.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-08/img/9.png)
+
+![10.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-08/img/10.png)
