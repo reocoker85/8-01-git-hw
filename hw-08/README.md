@@ -67,10 +67,14 @@ else [ $(ls -t|awk "NR>5"|xargs rm -rf) ]
 fi'
 
 ```
+
+Список бэкапов на втрой машине:
 ![6.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-08/img/6.png)
 
+Запуск скрипта:
 ![7.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-08/img/7.png)
 
+Итог:
 ![8.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-08/img/8.png)
 
 Bash-скрипт 2:
