@@ -29,7 +29,17 @@
 
 ![1.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-09/img/1.png)
 
+Балансировщик:
+
 ![2.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-09/img/2.png)
+
+Запрос по IP-адресу балансировщика:
+
+![3.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-09/img/3.png)
+
+Запрос по IP-адресу балансировщика при отключении одной машины:
+
+![4.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-09/img/4.png)
 
 ---
 
