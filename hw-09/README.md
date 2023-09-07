@@ -80,6 +80,7 @@ resource "yandex_compute_instance" "vm" {
 
 }
 
+
 resource "yandex_vpc_network" "network-1" {
   name = "network1"
 }
