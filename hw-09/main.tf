@@ -28,6 +28,8 @@ resource "yandex_compute_instance" "vm" {
     user-data = "${file("./meta.txt")}"
   }
 
+# Установка nginx
+
   connection {
     type = "ssh"
     user = "user"
@@ -60,6 +62,8 @@ resource "yandex_vpc_subnet" "subnet-1" {
   v4_cidr_blocks = ["192.168.10.0/24"]
 }
 
+# Создание таргет-группы
+
 resource "yandex_lb_target_group" "vm-machine" {
   name = "vm-machine-target-group"
 
@@ -73,6 +77,8 @@ resource "yandex_lb_target_group" "vm-machine" {
     address   = yandex_compute_instance.vm[1].network_interface.0.ip_address
   }
 }
+
+# Создание балансировщика
 
 resource "yandex_lb_network_load_balancer" "reo-load-balancer" {
   name = "reo-load-balancer"
