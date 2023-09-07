@@ -29,6 +29,8 @@
 
 ![1.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-09/img/1.png)
 
+![2.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-09/img/2.png)
+
 ---
 
 ## Задания со звёздочкой*
