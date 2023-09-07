@@ -28,7 +28,7 @@
 *3. Скриншот страницы, которая открылась при запросе IP-адреса балансировщика.*
 
 <details>
-  '''
+```
 resource "yandex_compute_instance" "vm" {
   count = 2
   name = "vm${count.index}"
@@ -130,8 +130,9 @@ resource "yandex_lb_network_load_balancer" "reo-load-balancer" {
 }
 
   
-  '''
+```
 </details>
+
 ![1.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-09/img/1.png)
 
 Балансировщик:
