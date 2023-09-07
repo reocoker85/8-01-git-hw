@@ -27,8 +27,7 @@
 
 *3. Скриншот страницы, которая открылась при запросе IP-адреса балансировщика.*
 
-[Terraform Playbook][code]
-[code] : https://github.com/reocoker85/homeworks/blob/main/hw-09/main.tf
+Созданные вм :
 
 ![1.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-09/img/1.png)
 
