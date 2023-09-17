@@ -29,10 +29,13 @@
 
 *3. Скриншот страницы, которая открылась при запросе IP-адреса балансировщика.*
 
-[main.tf](main.tf)
+Terraform playbook : [main.tf](main.tf)
+
+Nginx установим через скрипт [nginx.sh](nginx.sh) , используя remote-exec
+
 Созданные вм :
 
-![1.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-09/img/1.png)
+![1.png](./img/1.png)
 
 Балансировщик:
 
