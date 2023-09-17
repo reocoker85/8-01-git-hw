@@ -1,0 +1,26 @@
+#cloud-config
+users:
+  - default
+  - name: user
+    groups: sudo
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCkvF5h+wyHs4chun0lItQSkitytlHM6ILShF4FLuioGbmeWnVcf8ZIujb4Z35EIWhdaHHTB4L8EOP1OCZH2Z+CWrROOag70C1nX4uDHvB3InO5ElLlSfZaA+OHbw1rG6nbPs7PFsncxUhWM6H1q/R5eluBb+kDlui68LjiwrDHbw1gRbmbyj6b0aelvWUK43qS/Z1dySXy7czW32hMdh0FTSOc18dIT08THg/L9kRJYreGM71sfxJXFVZKly+CjR/AoFnekR4fAdfo7CZSSzUJQw++C0Wk+um4JBwHITrbdUg13Bs5cV8laQtnNLmsDTBXWx//60VQ5cCOPa8V9mKrAuKdCg3F1SaaktWvKXCQ/wUhOyK3Hxgvwy29vw+hvkFV+FRVTTrRkstsM8wOoBId5jIZPiM6NbC0Gku0VscoB8LhIlc99GcBR98oRuLwafIcN0mwVhqpwIh7MFk2BYSGi0x609KdrSvpI3nRtTw7EHjP9pDF3GXvsgaeG39KQo8= reocoker@reocokervm
+
+
+disable_root: true
+timezone: Europe/Moscow
+repo_update: true
+repo_upgrade: true
+apt:
+  preserve_sources_list: true
+
+packages:
+  - nginx
+
+runcmd:
+  - [ systemctl, nginx-reload ]
+  - [ systemctl, enable, nginx.service ]
+  - [ systemctl, start, --no-block, nginx.service ]
+  - [ sh, -c, "echo $(hostname | cut -d '.' -f 1 ) > /var/www/html/index.html" ]
