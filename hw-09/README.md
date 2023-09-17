@@ -29,6 +29,7 @@
 
 *3. Скриншот страницы, которая открылась при запросе IP-адреса балансировщика.*
 
+[main.tf](main.tf)
 Созданные вм :
 
 ![1.png](https://github.com/reocoker85/8-01-git-hw/blob/main/hw-09/img/1.png)
