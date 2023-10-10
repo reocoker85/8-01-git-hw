@@ -1,0 +1,57 @@
+Vagrant.configure("2") do |config|
+
+        # machine1
+        config.vm.define "rmq01" do |rmq01|
+                rmq01.vm.hostname = "rmq01"
+                rmq01.vm.box = "generic"
+                rmq01.vm.network "public_network", ip: "192.168.0.10" ,  bridge: "Realtek PCIe GBE Family Controller"
+                rmq01.vm.provider "virtualbox" do |vb|
+				        vb.gui = true
+                        vb.customize ["modifyvm", :id, "--memory", "2048" ]
+                        vb.customize ["modifyvm", :id, "--cpus", "2" ]
+                        vb.customize ["modifyvm", :id, "--name", "rmq01" ]
+                end
+				rmq01.vm.provision "shell", path: "rabbit.sh"
+                rmq01.vm.provision "shell", inline: <<-SHELL
+				sudo echo "192.168.0.10 rmq01" | sudo tee -a /etc/hosts
+                sudo echo "192.168.0.11 rmq02" | sudo tee -a /etc/hosts
+                sudo rabbitmq-plugins enable rabbitmq_management
+                sudo systemctl restart rabbitmq-server
+				sudo ufw allow ssh
+                sudo ufw enable
+                sudo ufw allow 5672,15672,4369,25672/tcp
+                SHELL
+				
+        end
+		
+		# machine2
+        config.vm.define "rmq02" do |rmq02|
+                rmq02.vm.hostname = "rmq02"
+                rmq02.vm.box = "generic"
+                rmq02.vm.network "public_network", ip: "192.168.0.11" ,  bridge: "Realtek PCIe GBE Family Controller"
+                rmq02.vm.provider "virtualbox" do |vb|
+				        vb.gui = true
+                        vb.customize ["modifyvm", :id, "--memory", "2048" ]
+                        vb.customize ["modifyvm", :id, "--cpus", "2" ]
+                        vb.customize ["modifyvm", :id, "--name", "rmq02" ]
+                end
+				rmq02.vm.provision "shell", path: "rabbit.sh"
+                rmq02.vm.provision "shell", inline: <<-SHELL
+				sudo echo "192.168.0.10 rmq01" | sudo tee -a /etc/hosts
+                sudo echo "192.168.0.11 rmq02" | sudo tee -a /etc/hosts
+                sudo rabbitmq-plugins enable rabbitmq_management
+                sudo systemctl restart rabbitmq-server
+				sudo ufw allow ssh
+                sudo ufw enable
+                sudo ufw allow 5672,15672,4369,25672/tcp
+				sudo rabbitmqctl stop_app
+                sudo rabbitmqctl join_cluster rabbit@rmq01
+                sudo rabbitmqctl start_app
+				sudo rabbitmqctl add_user test test
+				sudo rabbitmqctl set_user_tags test administrator
+				sudo rabbitmqctl set_permissions -p / test ".*" ".*" ".*"
+                SHELL
+				
+        end
+
+end
