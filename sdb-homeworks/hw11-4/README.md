@@ -73,7 +73,7 @@ $ rabbitmqadmin get queue='hello'
 
 *Приложите скриншот результата работы второго скрипта.*
 
-![Vagrant](./Vagrantfile)
+[Vagrant](./Vagrantfile)
 
 
 ## Дополнительные задания (со звёздочкой*)
