@@ -79,7 +79,7 @@ $ rabbitmqadmin get queue='hello'
 
 ### Решение 3.
 
-Используя Vagrant , создал 2 вм и установил RabbitMQ, обединив в кластер с политикой ha-all на все очереди.    [Vagrant](./Vagrantfile)
+Используя [Vagrant](./Vagrantfile) , создал 2 вм и установил RabbitMQ, обединив в кластер с политикой ha-all на все очереди.    
 
 Проверяем пинг по имени.
 
@@ -89,7 +89,7 @@ $ rabbitmqadmin get queue='hello'
 
 ![5.png](./img/5.png)
 
-Вывод команды с двух нод:
+Вывод команды rabbitmqctl cluster_status с двух нод:
 
 ![6.png](./img/6.png)
 
