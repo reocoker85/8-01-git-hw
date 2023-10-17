@@ -1,0 +1,13 @@
+filebeat.modules:
+- module: nginx
+  access:
+    var.paths: ["/usr/share/filebeat/logs/nginx/access.log"]
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+  indices:
+    - index: "filebeat-%%{+YYYY.MM.dd}"
+
+setup.kibana:
+  host: "kibana:5601"
+

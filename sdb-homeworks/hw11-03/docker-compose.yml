@@ -1,0 +1,81 @@
+version: '3.7'
+
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:1.25.2
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - /var/www/html:/usr/share/nginx/html
+      - /var/log/nginx:/var/log/nginx
+
+  elasticsearch:
+    image: elasticsearch:7.17.9
+    container_name: elasticsearch
+    restart: always
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+      - cluster.name=reocoker-cluster
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+  kibana:
+    container_name: kibana
+    image: kibana:7.17.9
+    restart: always
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+
+  logstash:
+    container_name: logstash
+    image: logstash:7.17.9
+    restart: unless-stopped
+    ports:
+      - "5044:5044"
+      - "5001:5000"
+      - "9600:9600"
+    user: root
+    volumes:
+      - ./logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - /var/log/nginx:/usr/share/logstash/logs/nginx
+    depends_on:
+      - elasticsearch
+      - kibana
+
+  filebeat:
+    container_name: filebeat
+    image: elastic/filebeat:7.17.9
+    command: --strict.perms=false
+    user: root
+    volumes:
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - /var/lib/docker:/var/lib/docker:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/log/nginx:/usr/share/filebeat/logs/nginx
+    depends_on:
+      - elasticsearch
+      - kibana
+
+
+volumes:
+  elasticsearch:
