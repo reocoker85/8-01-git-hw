@@ -4,6 +4,15 @@
 
 Напишите запрос к учебной базе данных, который вернёт процентное отношение общего размера всех индексов к общему размеру всех таблиц.
 
+### Решение 1
+
+```sql
+SELECT SUM(INDEX_LENGTH)/SUM(DATA_LENGTH)*100 
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA = 'sakila';
+```
+![1.png](./img/1.png)
+
 ### Задание 2
 
 Выполните explain analyze следующего запроса:
