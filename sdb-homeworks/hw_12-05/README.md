@@ -24,6 +24,19 @@ where date(p.payment_date) = '2005-07-30' and p.payment_date = r.rental_date and
 - перечислите узкие места;
 - оптимизируйте запрос: внесите корректировки по использованию операторов, при необходимости добавьте индексы.
 
+  
+```sql
+CREATE index pay_date on payment (payment_date)                           
+ALTER table payment  drop index pay_date
+EXPLAIN ANALYZE
+select distinct concat(c.last_name, ' ', c.first_name), sum(p.amount)  
+from payment p
+INNER JOIN rental AS r ON  p.payment_date = r.rental_date
+INNER JOIN customer AS c ON  r.customer_id = c.customer_id
+INNER JOIN inventory AS i ON  i.inventory_id = r.inventory_id
+where date(p.payment_date) = '2005-07-30' and p.payment_date = r.rental_date
+GROUP BY concat(c.last_name, ' ', c.first_name)
+```
 ## Дополнительные задания (со звёздочкой*)
 Эти задания дополнительные, то есть не обязательные к выполнению, и никак не повлияют на получение вами зачёта по этому домашнему заданию. Вы можете их выполнить, если хотите глубже шире разобраться в материале.
 
