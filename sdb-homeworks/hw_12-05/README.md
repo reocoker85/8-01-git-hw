@@ -7,11 +7,11 @@
 ### Решение 1
 
 ```sql
-SELECT SUM(INDEX_LENGTH)/SUM(DATA_LENGTH)*100 
+SELECT SUM(INDEX_LENGTH)/(SUM(INDEX_LENGTH)+SUM(DATA_LENGTH)+SUM(DATA_FREE)) *100  AS "Size (%)"
 FROM INFORMATION_SCHEMA.TABLES
 WHERE TABLE_SCHEMA = 'sakila';
 ```
-![1.png](./img/1.png)
+![2.png](./img/2.png)
 
 ### Задание 2
 
