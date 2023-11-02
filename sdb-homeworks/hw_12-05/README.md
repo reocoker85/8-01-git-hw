@@ -53,7 +53,12 @@ time=5565..5565
 Удалим их.
 
 ```sql
- Limit: 200 row(s)  (cost=0..0 rows=0) (actual time=7.68..7.72 rows=200 loops=1)
+EXPLAIN ANALYZE 
+select distinct concat(c.last_name, ' ', c.first_name), sum(p.amount) over (partition by c.customer_id)
+from payment p, rental r, customer c
+where date(p.payment_date) = '2005-07-30' and p.payment_date = r.rental_date and r.customer_id = c.customer_id 
+
+-> Limit: 200 row(s)  (cost=0..0 rows=0) (actual time=7.68..7.72 rows=200 loops=1)
     -> Table scan on <temporary>  (cost=2.5..2.5 rows=0) (actual time=7.68..7.7 rows=200 loops=1)
         -> Temporary table with deduplication  (cost=0..0 rows=0) (actual time=7.68..7.68 rows=391 loops=1)
             -> Window aggregate with buffering: sum(payment.amount) OVER (PARTITION BY c.customer_id )   (actual time=6.56..7.54 rows=642 loops=1)
@@ -65,6 +70,7 @@ time=5565..5565
                                     -> Table scan on p  (cost=1564 rows=15400) (actual time=0.0309..3.31 rows=16044 loops=1)
                                 -> Covering index lookup on r using rental_date (rental_date=p.payment_date)  (cost=0.969 rows=1.01) (actual time=0.00127..0.00166 rows=1.01 loops=634)
                             -> Single-row index lookup on c using PRIMARY (customer_id=r.customer_id)  (cost=0.25 rows=1) (actual time=931e-6..957e-6 rows=1 loops=642)
+
 ```
 time=7.68..7.72
 
