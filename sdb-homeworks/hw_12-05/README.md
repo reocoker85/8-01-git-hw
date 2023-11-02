@@ -95,9 +95,29 @@ GROUP BY Client
 ```
 time=6.4..6.43
 
+3.Добавим индекс:
+```sql
+CREATE INDEX pay_date_ind on payment (payment_date) 
 
+EXPLAIN ANALYZE 
+SELECT  DISTINCT  CONCAT(c.last_name, ' ', c.first_name) AS Client,
+SUM(p.amount) AS 'Sum' 
+FROM  payment p, rental r, customer c
+WHERE  p.payment_date BETWEEN '2005-07-30 00:00:00' AND '2005-07-30 23:59:59' AND p.payment_date = r.rental_date AND r.customer_id = c.customer_id 
+GROUP BY Client                          
+                                                       
+ -> Limit: 200 row(s)  (actual time=3..3.03 rows=200 loops=1)
+    -> Table scan on <temporary>  (actual time=3..3.02 rows=200 loops=1)
+        -> Aggregate using temporary table  (actual time=3..3 rows=391 loops=1)
+            -> Nested loop inner join  (cost=573 rows=634) (actual time=0.0328..2.52 rows=642 loops=1)
+                -> Nested loop inner join  (cost=351 rows=634) (actual time=0.0229..1.1 rows=634 loops=1)
+                    -> Filter: (r.rental_date between '2005-07-30 00:00:00' and '2005-07-30 23:59:59')  (cost=129 rows=634) (actual time=0.0161..0.448 rows=634 loops=1)
+                        -> Covering index range scan on r using rental_date over ('2005-07-30 00:00:00' <= rental_date <= '2005-07-30 23:59:59')  (cost=129 rows=634) (actual time=0.0142..0.198 rows=634 loops=1)
+                    -> Single-row index lookup on c using PRIMARY (customer_id=r.customer_id)  (cost=0.25 rows=1) (actual time=863e-6..889e-6 rows=1 loops=634)
+                -> Index lookup on p using pay_date_ind (payment_date=r.rental_date)  (cost=0.25 rows=1) (actual time=0.00172..0.00207 rows=1.01 loops=634)
 
-
+```
+time=3..3.03
 
 ## Дополнительные задания (со звёздочкой*)
 Эти задания дополнительные, то есть не обязательные к выполнению, и никак не повлияют на получение вами зачёта по этому домашнему заданию. Вы можете их выполнить, если хотите глубже шире разобраться в материале.
