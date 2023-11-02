@@ -24,7 +24,22 @@ where date(p.payment_date) = '2005-07-30' and p.payment_date = r.rental_date and
 - перечислите узкие места;
 - оптимизируйте запрос: внесите корректировки по использованию операторов, при необходимости добавьте индексы.
 
-  
+### Решение 2
+Выпонил explain analyze:
+
+![3.png](./img/3.png)
+
+time=5565..5565
+
+1.Сразу можно сказать ,что сортировка по таблице film занимает много времени , но данные нигде не используются. 
+Так же не нужна таблица inventory и условие inventory id. 
+Удалим их.
+
+![4.png](./img/4.png)  
+
+
+
+
 ```sql
 CREATE index pay_date on payment (payment_date)                           
 ALTER table payment  drop index pay_date
