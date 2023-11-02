@@ -45,7 +45,6 @@ where date(p.payment_date) = '2005-07-30' and p.payment_date = r.rental_date and
                                 -> Single-row index lookup on c using PRIMARY (customer_id=r.customer_id)  (cost=250e-6 rows=1) (actual time=150e-6..177e-6 rows=1 loops=642000)
                             -> Single-row covering index lookup on i using PRIMARY (inventory_id=r.inventory_id)  (cost=250e-6 rows=1) (actual time=123e-6..152e-6 rows=1 loops=642000)
 ```
-
 time=5565..5565
 
 1.Сразу можно сказать ,что сортировка по таблице film занимает много времени , но данные нигде не используются. 
@@ -73,6 +72,29 @@ where date(p.payment_date) = '2005-07-30' and p.payment_date = r.rental_date and
 
 ```
 time=7.68..7.72
+
+2. Я бы заменил оконную функцию (partition by) на GOUP BY , так как она не уменьшают количество строк, а возвращают столько же значений, сколько получили на вход.
+
+```sql
+EXPLAIN ANALYZE 
+SELECT  DISTINCT  CONCAT(c.last_name, ' ', c.first_name) AS Client,
+SUM(p.amount) AS 'Sum' 
+FROM  payment p, rental r, customer c
+WHERE  date(p.payment_date) = '2005-07-30' AND p.payment_date = r.rental_date AND r.customer_id = c.customer_id 
+GROUP BY Client
+
+-> Limit: 200 row(s)  (actual time=6.4..6.43 rows=200 loops=1)
+    -> Table scan on <temporary>  (actual time=6.4..6.42 rows=200 loops=1)
+        -> Aggregate using temporary table  (actual time=6.4..6.4 rows=391 loops=1)
+            -> Nested loop inner join  (cost=23499 rows=15590) (actual time=0.0587..5.93 rows=642 loops=1)
+                -> Nested loop inner join  (cost=18042 rows=15590) (actual time=0.0534..5.35 rows=642 loops=1)
+                    -> Filter: (cast(p.payment_date as date) = '2005-07-30')  (cost=1564 rows=15400) (actual time=0.0412..4.36 rows=634 loops=1)
+                        -> Table scan on p  (cost=1564 rows=15400) (actual time=0.0323..3.3 rows=16044 loops=1)
+                    -> Covering index lookup on r using rental_date (rental_date=p.payment_date)  (cost=0.969 rows=1.01) (actual time=0.00102..0.00142 rows=1.01 loops=634)
+                -> Single-row index lookup on c using PRIMARY (customer_id=r.customer_id)  (cost=0.25 rows=1) (actual time=752e-6..778e-6 rows=1 loops=642)
+```
+time=6.4..6.43
+
 
 
 
