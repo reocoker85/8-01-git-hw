@@ -26,8 +26,25 @@ where date(p.payment_date) = '2005-07-30' and p.payment_date = r.rental_date and
 
 ### Решение 2
 Выпонил explain analyze:
-
-![3.png](./img/3.png)
+```sql
+ Limit: 200 row(s)  (cost=0..0 rows=0) (actual time=5565..5565 rows=200 loops=1)
+    -> Table scan on <temporary>  (cost=2.5..2.5 rows=0) (actual time=5565..5565 rows=200 loops=1)
+        -> Temporary table with deduplication  (cost=0..0 rows=0) (actual time=5565..5565 rows=391 loops=1)
+            -> Window aggregate with buffering: sum(payment.amount) OVER (PARTITION BY c.customer_id,f.title )   (actual time=2635..5386 rows=642000 loops=1)
+                -> Sort: c.customer_id, f.title  (actual time=2635..2701 rows=642000 loops=1)
+                    -> Stream results  (cost=21.1e+6 rows=15.6e+6) (actual time=0.323..1670 rows=642000 loops=1)
+                        -> Nested loop inner join  (cost=21.1e+6 rows=15.6e+6) (actual time=0.319..1431 rows=642000 loops=1)
+                            -> Nested loop inner join  (cost=19.6e+6 rows=15.6e+6) (actual time=0.316..1239 rows=642000 loops=1)
+                                -> Nested loop inner join  (cost=18e+6 rows=15.6e+6) (actual time=0.312..1029 rows=642000 loops=1)
+                                    -> Inner hash join (no condition)  (cost=1.54e+6 rows=15.4e+6) (actual time=0.301..45.5 rows=634000 loops=1)
+                                        -> Filter: (cast(p.payment_date as date) = '2005-07-30')  (cost=1.61 rows=15400) (actual time=0.0249..5.7 rows=634 loops=1)
+                                            -> Table scan on p  (cost=1.61 rows=15400) (actual time=0.0166..4.18 rows=16044 loops=1)
+                                        -> Hash
+                                            -> Covering index scan on f using idx_title  (cost=112 rows=1000) (actual time=0.0358..0.207 rows=1000 loops=1)
+                                    -> Covering index lookup on r using rental_date (rental_date=p.payment_date)  (cost=0.969 rows=1.01) (actual time=978e-6..0.00139 rows=1.01 loops=634000)
+                                -> Single-row index lookup on c using PRIMARY (customer_id=r.customer_id)  (cost=250e-6 rows=1) (actual time=150e-6..177e-6 rows=1 loops=642000)
+                            -> Single-row covering index lookup on i using PRIMARY (inventory_id=r.inventory_id)  (cost=250e-6 rows=1) (actual time=123e-6..152e-6 rows=1 loops=642000)
+```
 
 time=5565..5565
 
@@ -35,23 +52,25 @@ time=5565..5565
 Так же не нужна таблица inventory и условие inventory id. 
 Удалим их.
 
-![4.png](./img/4.png)  
-
-
-
-
 ```sql
-CREATE index pay_date on payment (payment_date)                           
-ALTER table payment  drop index pay_date
-EXPLAIN ANALYZE
-select distinct concat(c.last_name, ' ', c.first_name), sum(p.amount)  
-from payment p
-INNER JOIN rental AS r ON  p.payment_date = r.rental_date
-INNER JOIN customer AS c ON  r.customer_id = c.customer_id
-INNER JOIN inventory AS i ON  i.inventory_id = r.inventory_id
-where date(p.payment_date) = '2005-07-30' and p.payment_date = r.rental_date
-GROUP BY concat(c.last_name, ' ', c.first_name)
+ Limit: 200 row(s)  (cost=0..0 rows=0) (actual time=7.68..7.72 rows=200 loops=1)
+    -> Table scan on <temporary>  (cost=2.5..2.5 rows=0) (actual time=7.68..7.7 rows=200 loops=1)
+        -> Temporary table with deduplication  (cost=0..0 rows=0) (actual time=7.68..7.68 rows=391 loops=1)
+            -> Window aggregate with buffering: sum(payment.amount) OVER (PARTITION BY c.customer_id )   (actual time=6.56..7.54 rows=642 loops=1)
+                -> Sort: c.customer_id  (actual time=6.54..6.58 rows=642 loops=1)
+                    -> Stream results  (cost=23499 rows=15590) (actual time=0.0615..6.41 rows=642 loops=1)
+                        -> Nested loop inner join  (cost=23499 rows=15590) (actual time=0.0572..6.22 rows=642 loops=1)
+                            -> Nested loop inner join  (cost=18042 rows=15590) (actual time=0.0528..5.51 rows=642 loops=1)
+                                -> Filter: (cast(p.payment_date as date) = '2005-07-30')  (cost=1564 rows=15400) (actual time=0.0397..4.37 rows=634 loops=1)
+                                    -> Table scan on p  (cost=1564 rows=15400) (actual time=0.0309..3.31 rows=16044 loops=1)
+                                -> Covering index lookup on r using rental_date (rental_date=p.payment_date)  (cost=0.969 rows=1.01) (actual time=0.00127..0.00166 rows=1.01 loops=634)
+                            -> Single-row index lookup on c using PRIMARY (customer_id=r.customer_id)  (cost=0.25 rows=1) (actual time=931e-6..957e-6 rows=1 loops=642)
 ```
+time=7.68..7.72
+
+
+
+
 ## Дополнительные задания (со звёздочкой*)
 Эти задания дополнительные, то есть не обязательные к выполнению, и никак не повлияют на получение вами зачёта по этому домашнему заданию. Вы можете их выполнить, если хотите глубже шире разобраться в материале.
 
