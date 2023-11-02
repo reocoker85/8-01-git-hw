@@ -33,7 +33,7 @@
 
 ### Решение 3.
 
-Используя [docker compose](./docker-compose.yml) создаем стек ELK и пробрасываем конфигурационный файл [logstash](./logstash.conf)
+Используя [docker compose](./docker-compose.yml) ,создаем стек ELK и пробрасываем конфигурационный файл [logstash](./logstash.conf)
 
 ![3.png](./img/3.png)
 
@@ -47,6 +47,6 @@
 
 ### Решение 4.
 
-Используя [docker compose](./docker-compose.yml) создаем стек ELK и пробрасываем конфигурационный файл [filebeat](./filebeat.yml)
+Используя [docker compose](./docker-compose.yml) ,создаем стек ELK и пробрасываем конфигурационный файл [filebeat](./filebeat.yml)
 
 ![4.png](./img/4.png)
