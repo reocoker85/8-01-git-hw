@@ -15,8 +15,6 @@
 
 *Приложите скриншоты конфигурации, выполнения работы: состояния и режимы работы серверов.*
 
----
-
 ### Задание 3* 
 
 Выполните конфигурацию master-master репликации. Произведите проверку.
@@ -40,5 +38,16 @@ db2 - 192.168.0.11
 ```
 general_log_file = /var/log/mysql/query.log
 ```
+Создаем пользователя для репликации:
+
+```
+CREATE USER slaveuser@ip_slave_server IDENTIFIED WITH mysql_native_password BY 'password';
+grant replication slave on *.* to slaveuser@ip_slave_server;
+flush privileges;
+
+```
+После проверяем master status и , используя полученную информацию,   настроим подчиненные сервера :
+
+![2.png](./img/2.png)
 
 ---
