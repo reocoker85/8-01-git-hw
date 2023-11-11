@@ -30,6 +30,7 @@
 Используя [vagrant](./vagrantfile), создадим 2 ВМ:
 
 db1 - 192.168.0.10 
+
 db2 - 192.168.0.11 
 
 Внесем изменения в /etc/mysql/mysql.conf.d/mysqld.cnf на обоих северах:
