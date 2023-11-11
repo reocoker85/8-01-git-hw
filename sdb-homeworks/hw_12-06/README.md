@@ -17,9 +17,12 @@
 
 ### Решение 2
 
-Используя [vagrant](./vagrant), создадим 2 ВМ.
+Используя [vagrant](./vagrantfile), создадим 2 ВМ:
+
 db1 - 192.168.0.10 - master
 db2 - 192.168.0.11 - slave
+
+Внесем изменения в /etc/mysql/mysql.conf.d/mysqld.cnf.
 
 
 ---
