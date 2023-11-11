@@ -1,0 +1,44 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+        # db1
+        config.vm.define "db1" do |db1|
+                db1.vm.hostname = "db1"
+                db1.vm.box = "genericubuntu2204"
+                db1.vm.network "public_network", ip: "192.168.0.10", bridge: "Realtek PCIe GBE Family Controller"
+                db1.vm.provider "virtualbox" do |vb|
+				        vb.gui = false
+                        vb.customize ["modifyvm", :id, "--memory", "2048" ]
+                        vb.customize ["modifyvm", :id, "--cpus", "2" ]
+                        vb.customize ["modifyvm", :id, "--name", "db1" ]
+                end
+                db1.vm.provision "shell", inline: <<-SHELL
+                sudo echo "192.168.0.10 db1" | sudo tee -a /etc/hosts
+                sudo echo "192.168.0.11 db2" | sudo tee -a /etc/hosts
+                sudo apt update
+                sudo apt install mysql-server -y
+				SHELL
+        end
+
+
+        # db2
+        config.vm.define "db2" do |db2|
+                db2.vm.hostname = "db2"
+                db2.vm.box = "genericubuntu2204"
+                db2.vm.network "public_network", ip: "192.168.0.11", bridge: "Realtek PCIe GBE Family Controller"
+                db2.vm.provider "virtualbox" do |vb|
+				        vb.gui = false
+                        vb.customize ["modifyvm", :id, "--memory", "2048" ]
+                        vb.customize ["modifyvm", :id, "--cpus", "2" ]
+                        vb.customize ["modifyvm", :id, "--name", "db2" ]
+                end
+                db2.vm.provision "shell", inline: <<-SHELL
+                sudo echo "192.168.0.10 db1" | sudo tee -a /etc/hosts
+                sudo echo "192.168.0.11 db2" | sudo tee -a /etc/hosts
+                sudo apt update
+                sudo apt install mysql-server -y
+				SHELL
+        end
+end
