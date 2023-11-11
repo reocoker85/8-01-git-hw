@@ -30,9 +30,11 @@
 Используя [vagrant](./vagrantfile), создадим 2 ВМ:
 
 db1 - 192.168.0.10 
-db2 - 192.168.0.11  
+db2 - 192.168.0.11 
+
 Внесем изменения в /etc/mysql/mysql.conf.d/mysqld.cnf на обоих северах:
 ![1.png](./img/1.png)
+
 Так же раскомментируем строку:
 ```
 general_log_file = /var/log/mysql/query.log
