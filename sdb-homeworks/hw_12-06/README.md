@@ -23,7 +23,19 @@ db1 - 192.168.0.10 - master
 db2 - 192.168.0.11 - slave
 
 Внесем изменения в /etc/mysql/mysql.conf.d/mysqld.cnf.
-
+Master server:
+```
+[mysqld]
+pid-file = /var/run/mysqld/mysqld.pid
+socket = /var/run/mysqld/mysqld.sock
+datadir = /var/lib/mysql
+bind-address            = 0.0.0.0  
+log_error = /var/log/mysql/error.log
+server-id = 1
+log_bin = /var/log/mysql/mysql-bin.log
+max_binlog_size = 500M
+slow_query_log = 1
+```
 
 ---
 
