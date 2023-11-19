@@ -60,8 +60,8 @@ select * from test_table;
 *2) Результата вывода команды на реплике ```select * from test_table;```.*
 
 ### Решение 1.
-![1.png]/(./img/1.png)
-![2.png]/(./img/2.png)
+![1.png](./img/1.png)
+![2.png](./img/2.png)
 
 
 ### Задание 2*
