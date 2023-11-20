@@ -76,7 +76,7 @@ select * from test_table;
 
 ### Решение 2.
 
-[Terraform](./main (1).tf)
+[Terraform](./main.tf)
 
 ![4.png](./img/4.png)
 ![5.png](./img/5.png)
