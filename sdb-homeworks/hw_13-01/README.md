@@ -24,6 +24,7 @@
 ### Решение 1
 ![1.png](./img/1.png)
 [vsftpd 2.3.4 - Backdoor Command Execution](https://www.exploit-db.com/exploits/49757)
+[ProFTPd 1.3 - 'mod_sql' 'Username' SQL Injection](https://www.exploit-db.com/exploits/32798)
 
 ### Задание 2
 
