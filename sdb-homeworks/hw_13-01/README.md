@@ -22,7 +22,7 @@
 *Приведите ответ в свободной форме.*  
 
 ### Решение 1
-
+![1.png](./img/1.png)
 [vsftpd 2.3.4 - Backdoor Command Execution](https://www.exploit-db.com/exploits/49757)
 
 ### Задание 2
