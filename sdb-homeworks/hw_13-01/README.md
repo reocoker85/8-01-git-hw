@@ -22,6 +22,7 @@
 *Приведите ответ в свободной форме.*  
 
 ### Решение 1
+
 ![1.png](./img/1.png)
 
 [vsftpd 2.3.4 - Backdoor Command Execution](https://www.exploit-db.com/exploits/49757)
@@ -42,3 +43,13 @@
 - Как отвечает сервер?
 
 *Приведите ответ в свободной форме.*
+
+### Решение 2
+
+![2.png](./img/2.png)
+
+![3.png](./img/3.png)
+
+![4.png](./img/4.png)
+
+![5.png](./img/5.png)
