@@ -18,13 +18,13 @@
 ```
  adduser --encrypt-home  cryptouser
 ```
-[1.png](./img/1.png)
+![1.png](./img/1.png)
 
 2) Или создать пользователя , а уже потом зашифровываем  домашний католог
 
-[2.png](./img/2.png)
+![2.png](./img/2.png)
 
-[3.png](./img/3.png)
+![3.png](./img/3.png)
 
 ### Задание 2
 
