@@ -1,0 +1,49 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+		
+        #kali
+        config.vm.define "kali" do |kali|
+                kali.vm.hostname = "kali"
+                kali.vm.box = "kali"
+                kali.vm.network "public_network", ip: "192.168.0.10", bridge: "realtek pcie gbe family controller"
+                kali.vm.provider "virtualbox" do |vb|
+				        vb.gui = false
+                        vb.customize ["modifyvm", :id, "--memory", "2048" ]
+                        vb.customize ["modifyvm", :id, "--cpus", "2" ]
+                        vb.customize ["modifyvm", :id, "--name", "kali" ]
+                end
+                kali.vm.provision "shell", inline: <<-shell
+				sudo echo "192.168.0.10 kali" | sudo tee -a /etc/hosts
+                sudo echo "192.168.0.11 debian" | sudo tee -a /etc/hosts
+                shell
+        end
+
+
+        #debian
+        config.vm.define "debian" do |debian|
+                debian.vm.hostname = "debian"
+                debian.vm.box = "debian12"
+                debian.vm.network "public_network", ip: "192.168.0.11", bridge: "Realtek PCIe GBE Family Controller"
+                debian.vm.provider "virtualbox" do |vb|
+				        vb.gui = false
+                        vb.customize ["modifyvm", :id, "--memory", "1024" ]
+                        vb.customize ["modifyvm", :id, "--cpus", "1" ]
+                        vb.customize ["modifyvm", :id, "--name", "debian" ]
+                end
+                debian.vm.provision "shell", inline: <<-shell
+                sudo echo "192.168.0.10 kali" | sudo tee -a /etc/hosts
+                sudo echo "192.168.0.11 debian" | sudo tee -a /etc/hosts
+				sudo apt-get update
+				sudo apt-get install suricata -y
+				sudo suricata-update --no-test
+				sudo sed -i 's|EXTERNAL_NET: "!$HOME_NET"|#EXTERNAL_NET: "!$HOME_NET"|g' /etc/suricata/suricata.yaml
+				sudo sed -i 's|#EXTERNAL_NET: "any"|EXTERNAL_NET: "any"|g' /etc/suricata/suricata.yaml 
+				sudo sed -i 's|- interface: eth0|- interface: eth1|g' /etc/suricata/suricata.yaml
+				sudo sed -i 's|default-rule-path: /etc/suricata/rules|default-rule-path: /var/lib/suricata/rules|g' /etc/suricata/suricata.yaml
+                shell
+        end
+		
+
+ end
