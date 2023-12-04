@@ -43,7 +43,7 @@ Vagrant.configure("2") do |config|
 				sudo sed -i 's|- interface: eth0|- interface: eth1|g' /etc/suricata/suricata.yaml
 				sudo sed -i 's|default-rule-path: /etc/suricata/rules|default-rule-path: /var/lib/suricata/rules|g' /etc/suricata/suricata.yaml
                                 sudo apt-get install fail2ban -y
-				echo -e "[sshd]\nbackend=systemd\nenabled=true" | sudo tee /etc/fail2ban/jail.local
+				echo -e "[sshd]\nbackend=systemd\nenabled=true\nlogpath  = /var/log/auth.log\nfindtime    = 3600\nmaxretry    = 6\nbantime     = 86400" | sudo tee /etc/fail2ban/jail.local
 				sudo systemctl restart fail2ban.service
                 shell
         end
