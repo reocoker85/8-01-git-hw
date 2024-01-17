@@ -60,6 +60,18 @@ services:
 - SQL-запрос для выдачи списка пользователей с правами над таблицами test_db;
 - список пользователей с правами над таблицами test_db.
 
+## Решение 2
+
+![1.png](./img/1.png)
+
+![2.png](./img/2.png)
+
+```
+  SELECT *
+    FROM information_schema.role_table_grants
+WHERE grantee in ("test-admin-user", "test-simple-user");                                                   
+```
+![3.png](./img/3.png)
 ## Задача 3
 
 Используя SQL-синтаксис, наполните таблицы следующими тестовыми данными:
