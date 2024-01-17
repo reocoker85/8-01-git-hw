@@ -66,7 +66,7 @@ services:
 
 ![2.png](./img/2.png)
 
-```
+```sql
   SELECT *
     FROM information_schema.role_table_grants
 WHERE grantee in ("test-admin-user", "test-simple-user");                                                   
