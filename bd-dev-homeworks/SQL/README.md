@@ -69,7 +69,7 @@ services:
 ```sql
   SELECT *
     FROM information_schema.role_table_grants
-WHERE grantee in ("test-admin-user", "test-simple-user");                                                   
+WHERE grantee IN ("test-admin-user", "test-simple-user");                                                   
 ```
 ![3.png](./img/3.png)
 ## Задача 3
