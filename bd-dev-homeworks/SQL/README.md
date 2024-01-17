@@ -13,8 +13,22 @@
 Приведите получившуюся команду или docker-compose-манифест.
 
 ## Решение 1
-```
+```                                                    
+version: '3.1'
 
+services:
+  postgres:
+    image: postgres:12
+    container_name: netology_postgres
+    ports:
+      - 5432:5432
+    environment:
+      - PGDATA=/var/lib/postgresql/data
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./backup:/backup
+    restart: always
 ```
 ## Задача 2
 
