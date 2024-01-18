@@ -132,6 +132,18 @@ SELECT COUNT(*) FROM clients;
  
 Подсказка: используйте директиву `UPDATE`.
 
+## Решение 4
+
+```sql
+UPDATE clients SET "order" = (SELECT id FROM orders WHERE name = 'Book') WHERE surname = 'Ivanov Ivan Ivanovich';
+UPDATE clients SET "order" = (SELECT id FROM orders WHERE name = 'Monitor') WHERE surname = 'Petrov Petr Petrovich';
+UPDATE clients SET "order" = (SELECT id FROM orders WHERE name = 'Guitar') WHERE surname = 'Iogann Sebastian Bach';
+
+SELECT surname FROM clients WHERE "order" >=1;                                                   
+```
+
+![5.png](./img/5.png)
+
 ## Задача 5
 
 Получите полную информацию по выполнению запроса выдачи всех пользователей из задачи 4 
