@@ -106,6 +106,11 @@ WHERE grantee IN ("test-admin-user", "test-simple-user");
 
 ## Решение 3
 
+```sql
+SELECT COUNT(*) FROM orders;
+SELECT COUNT(*) FROM clients;                                                   
+```
+
 ![4.png](./img/4.png)
 
 
