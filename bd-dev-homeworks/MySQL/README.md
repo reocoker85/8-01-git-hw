@@ -44,7 +44,7 @@ services:
       MYSQL_ROOT_PASSWORD: example
 
 ```
-
+![1.png](./img/1.png)
 
 ## Задача 2
 
