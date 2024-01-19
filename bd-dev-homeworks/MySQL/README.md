@@ -24,7 +24,26 @@
 
 В следующих заданиях мы будем продолжать работу с этим контейнером.
 
-##  1
+## Решение 1
+```                                                                                        
+version: '3.1'
+
+services:
+
+  mysql:
+    image: mysql:8
+    container_name: mysql_netology
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./backup:/backup
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+
+```
 
 
 ## Задача 2
