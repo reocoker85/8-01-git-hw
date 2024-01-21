@@ -16,6 +16,18 @@
 - вывода описания содержимого таблиц,
 - выхода из psql.
 
+## Задача 1
+
+1)  \l[+] [PATTERN]                      list databases
+
+2)  \c{[DBNAME|- USER|- HOST|- PORT|-] | conninfo}connect to new database (currently "postgres")
+
+3)  \dt[S+] [PATTERN]                    list tables
+  
+4)  \d[S+]  NAME                         describe table, view, sequence, or index
+
+5) \q                     quit psql
+
 ## Задача 2
 
 Используя `psql`, создайте БД `test_database`.
