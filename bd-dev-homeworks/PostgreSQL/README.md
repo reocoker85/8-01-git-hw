@@ -92,3 +92,10 @@ COMMIT;
 pg_dump -d test_database -U postgres > ./backup/test_db.sql
 ```
 **Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?**
+```sql
+CREATE TABLE public.orders (
+    id integer NOT NULL,
+    title character varying(80) NOT NULL,
+    price integer DEFAULT 0
+);
+```
