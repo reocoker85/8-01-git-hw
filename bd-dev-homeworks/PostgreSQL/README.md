@@ -59,6 +59,7 @@
 ## Решение 3
 
 ```sql
+BEGIN;
 CREATE TABLE orders_parted (
  id SERIAL PRIMARY KEY,
  title VARCHAR(200),
@@ -67,12 +68,14 @@ CREATE TABLE orders_parted (
 PARTITION BY RANGE (price);
 
 CREATE TABLE orders_1 PARTITION OF orders_parted
- FOR VALUES FROM (500) TO ();
+ FOR VALUES FROM (500) TO (MAXVALUE);
 
 CREATE TABLE orders_2 PARTITION OF orders_parted
  FOR VALUES FROM (0) TO (499);
 
+INSERT INTO orders_parted (id, title, price) SELECT * FROM orders;
 
+COMMIT;
 ```
 ## Задача 4
 
