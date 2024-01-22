@@ -56,7 +56,26 @@
 Предложите SQL-транзакцию для проведения этой операции.
 
 Можно ли было изначально исключить ручное разбиение при проектировании таблицы orders?
+## Решение 3
 
+```sql
+CREATE TABLE sensor_data (
+ id SERIAL PRIMARY KEY,
+ sensor_id INTEGER,
+ reading FLOAT,
+ timestamp TIMESTAMP
+)
+PARTITION BY RANGE (timestamp);
+
+CREATE TABLE sensor_data_202101 PARTITION OF sensor_data
+ FOR VALUES FROM ('2021-01-01 00:00:00') TO ('2021-02-01 00:00:00');
+
+CREATE TABLE sensor_data_202102 PARTITION OF sensor_data
+ FOR VALUES FROM ('2021-02-01 00:00:00') TO ('2021-03-01 00:00:00');
+
+-- ...
+
+```
 ## Задача 4
 
 Используя утилиту `pg_dump`, создайте бекап БД `test_database`.
