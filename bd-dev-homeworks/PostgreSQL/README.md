@@ -59,21 +59,19 @@
 ## Решение 3
 
 ```sql
-CREATE TABLE sensor_data (
+CREATE TABLE orders_parted (
  id SERIAL PRIMARY KEY,
- sensor_id INTEGER,
- reading FLOAT,
- timestamp TIMESTAMP
+ title VARCHAR(200),
+ price INT 
 )
-PARTITION BY RANGE (timestamp);
+PARTITION BY RANGE (price);
 
-CREATE TABLE sensor_data_202101 PARTITION OF sensor_data
- FOR VALUES FROM ('2021-01-01 00:00:00') TO ('2021-02-01 00:00:00');
+CREATE TABLE orders_1 PARTITION OF orders_parted
+ FOR VALUES FROM (500) TO ();
 
-CREATE TABLE sensor_data_202102 PARTITION OF sensor_data
- FOR VALUES FROM ('2021-02-01 00:00:00') TO ('2021-03-01 00:00:00');
+CREATE TABLE orders_2 PARTITION OF orders_parted
+ FOR VALUES FROM (0) TO (499);
 
--- ...
 
 ```
 ## Задача 4
