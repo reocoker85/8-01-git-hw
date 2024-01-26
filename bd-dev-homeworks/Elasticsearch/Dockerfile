@@ -12,10 +12,7 @@ RUN tar -zxf ${VER}-linux-x86_64.tar.gz && \
     rm ${VER}-linux-x86_64*
 
 RUN adduser elasticsearch && \
-    chown -R elasticsearch:elasticsearch /${VER} && \
-    chown -R elasticsearch:elasticsearch /var/lib
-
-USER elasticsearch
+    chown -R elasticsearch:elasticsearch /${VER} 
 
 WORKDIR /${VER}
 
