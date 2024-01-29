@@ -37,7 +37,7 @@
 
 ## Решение 1
 
-```
+```dockerfile
 FROM centos:7
 
 LABEL maintainer="reocoker1985@yndex.ru"
