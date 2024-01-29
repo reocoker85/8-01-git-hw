@@ -1,12 +1,7 @@
 FROM centos:7
 
 LABEL maintainer="reocoker1985@yndex.ru"
-
-ARG BUILD_DATE
-
-LABEL org.label-schema.build-date=$BUILD_DATE
 LABEL org.label-schema.docker.cmd="docker run -p 9200:9200 -p 9300:9300 reocoker/centoselastic"
-
 
 ENV VER elasticsearch-7.17.17
 
@@ -47,4 +42,3 @@ EXPOSE 9200
 EXPOSE 9300
 
 CMD ["./bin/elasticsearch"]
-#CMD ["/bin/bash"]
