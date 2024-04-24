@@ -91,6 +91,9 @@ https://hub.docker.com/repository/docker/reocoker/custom-nginx/general
 
 В качестве ответа приложите скриншоты консоли, где видно все введенные команды и их вывод.
 
+## Решение 4
+
+![6.png](./img/6.png)
 
 ## Задача 5
 
