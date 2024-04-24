@@ -144,9 +144,45 @@ services:
 
 В качестве ответа приложите скриншоты консоли, где видно все введенные команды и их вывод, файл compose.yaml , скриншот portainer c задеплоенным компоузом.
 
----
 
-### Правила приема
+## Решение 5
 
-Домашнее задание выполните в файле readme.md в GitHub-репозитории. В личном кабинете отправьте на проверку ссылку на .md-файл в вашем репозитории.
+При выполнии команды "docker compose up -d" будет запущен файл compose.yaml . Поддерживаются оба названия , но при наличии обоих запустится compose.yaml , как более предпочтительный.
 
+Отредактировал файл compose.yaml так, чтобы были запущенны оба файла.
+
+```yaml
+
+version: "3"
+include:
+  - docker-compose.yaml
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    network_mode: host
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+```
+![7.png](./img/7.png)
+
+
+Залил образ custom-nginx как custom-nginx:latest в локальное registry.
+
+
+![8.png](./img/8.png)
+
+
+Скриншорт из portainer:
+
+
+![9.png](./img/9.png)
+
+
+При удалении манифеста compose.yaml и выполнение команды "docker compose up -d" возникает предупреждение из-за идемпотентности docker compose , что обнаружен контейнер , которого нет в манифесте (он был в удаленном) и соответсвенно предлагает использовать флаг --remove-orphans для удаления контейнера .
+
+
+![10.png](./img/10.png)
