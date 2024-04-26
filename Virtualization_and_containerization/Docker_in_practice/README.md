@@ -87,7 +87,8 @@ sudo apt-get install -y git
 cd ./opt
 git init
 git clone https://github.com/reocoker85/shvirtd-example-python.git
-sudo docker compose up -d
+cd ./shvirtd-example-python
+docker compose up -d
 ```
 ![5.png](./img/5.png)
 ![6.png](./img/6.png)
