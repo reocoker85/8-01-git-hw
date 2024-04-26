@@ -52,6 +52,8 @@
 5. (Необязательная часть) Дополнительно настройте remote ssh context к вашему серверу. Отобразите список контекстов и результат удаленного выполнения ```docker ps -a```
 6. В качестве ответа повторите  sql-запрос и приложите скриншот с данного сервера, bash-скрипт и ссылку на fork-репозиторий.
 
+## Решение 4
+
 ```bash
 #!/bin/bash
 
@@ -69,18 +71,15 @@ echo \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 
+# Install docker:
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
+# Clone repo and run docker compose:
 sudo apt-get install -y git
-
 cd ./opt
-
 git init
-
 git clone https://github.com/reocoker85/shvirtd-example-python.git
-
 cd ./shvirtd-example-python
-
 sudo docker compose up
 
 ```
