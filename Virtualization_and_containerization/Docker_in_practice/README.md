@@ -81,6 +81,7 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 # Docker without sudo:
 sudo usermod -aG docker $USER
 newgrp docker
+exit
 
 # Clone repo and run docker compose:
 sudo apt-get install -y git
