@@ -54,6 +54,8 @@
 
 ## Решение 4
 
+Ссылка:  https://github.com/reocoker85/shvirtd-example-python.git
+
 ```bash
 #!/bin/bash
 
