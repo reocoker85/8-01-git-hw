@@ -56,6 +56,8 @@
 
 Ссылка:  https://github.com/reocoker85/shvirtd-example-python.git
 
+[Terraform](./compute.tf)
+
 ```bash
 #!/bin/bash
 
@@ -76,16 +78,21 @@ sudo apt-get update
 # Install docker:
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
+# Docker without sudo:
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+
 # Clone repo and run docker compose:
 sudo apt-get install -y git
 cd ./opt
 git init
 git clone https://github.com/reocoker85/shvirtd-example-python.git
 cd ./shvirtd-example-python
-sudo docker compose up
-
+sudo docker compose up -d
 ```
-
+![5.png](./img/5.png)
+![6.png](./img/6.png)
 
 ## Задача 5 (*)
 1. Напишите и задеплойте на вашу облачную ВМ bash скрипт, который произведет резервное копирование БД mysql в директорию "/opt/backup" с помощью запуска в сети "backend" контейнера из образа ```schnitzler/mysqldump``` при помощи ```docker run ...``` команды. Подсказка: "документация образа."
