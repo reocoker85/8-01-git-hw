@@ -78,16 +78,11 @@ sudo apt-get update
 # Install docker:
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-# Docker without sudo:
-sudo usermod -aG docker $USER
-newgrp docker
-exit
-
 # Clone repo and run docker compose:
-sudo apt-get install -y git
-git clone https://github.com/reocoker85/shvirtd-example-python.git /opt/
-cd /opt/shvirtd-example-python
-docker compose up -d
+sudo mkdir /opt/shvirtd-example-python && cd /opt/shvirtd-example-python
+sudo git clone https://github.com/reocoker85/shvirtd-example-python.git .
+cd ./shvirtd-example-python
+sudo docker compose up -d
 ```
 ![5.png](./img/5.png)
 ![6.png](./img/6.png)
