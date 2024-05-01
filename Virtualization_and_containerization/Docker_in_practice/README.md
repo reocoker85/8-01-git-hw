@@ -85,10 +85,8 @@ exit
 
 # Clone repo and run docker compose:
 sudo apt-get install -y git
-cd ./opt
-git init
-git clone https://github.com/reocoker85/shvirtd-example-python.git
-cd ./shvirtd-example-python
+git clone https://github.com/reocoker85/shvirtd-example-python.git /opt/
+cd /opt/shvirtd-example-python
 docker compose up -d
 ```
 ![5.png](./img/5.png)
@@ -108,10 +106,3 @@ docker compose up -d
 Добейтесь аналогичного результата, используя docker cp.  
 Предоставьте скриншоты  действий .
 
-## Задача 6.2 (**)
-Предложите способ извлечь файл из контейнера, используя только команду docker build и любой Dockerfile.  
-Предоставьте скриншоты  действий .
-
-## Задача 7 (***)
-Запустите ваше python-приложение с помощью runC, не используя docker или containerd.  
-Предоставьте скриншоты  действий .
