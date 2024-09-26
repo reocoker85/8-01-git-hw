@@ -46,7 +46,7 @@
 
 #### Задание 1:
 
-[Ссылка на манифест](./deployment.yaml)
+<br>[Ссылка на манифест](./deployment.yaml)
 
 ![1.png](./img/1.png)
 
