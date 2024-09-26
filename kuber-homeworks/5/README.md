@@ -46,10 +46,10 @@
 
 #### Задание 1:
 <br>[Ссылка на манифест](./deployment.yaml)
-<br>[![1.png](./img/1.png)
+<br>![1.png](./img/1.png)
 
 
 #### Задание 2:
-<br>[[Ссылка на манифест](./ingress.yaml)
-<br>[![2.png](./img/2.png)
+<br>[Ссылка на манифест](./ingress.yaml)
+<br>![2.png](./img/2.png)
 
