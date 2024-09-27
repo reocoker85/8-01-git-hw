@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemonset
+  labels:
+    app: myapp
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: multitool
+        image: wbitt/network-multitool
+        command: ['sh', '-c', 'while true; do cat /log/syslog; sleep 5;done']
+        volumeMounts:
+        - name: volume
+          mountPath: /logs-syslog
+      volumes:
+      - name: volume
+        hostPath:
+          path: /var/log
+...

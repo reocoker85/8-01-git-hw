@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multi-deployment
+  labels:
+    app: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ['sh', '-c', 'while true; do echo $(uptime) > /output/test.txt; sleep 5;done']
+        volumeMounts:
+        - name: test-volume
+          mountPath: /output
+      - name: multitool
+        image: wbitt/network-multitool
+        command: ['sh', '-c', 'while true; do cat /input/test.txt > /input/ok.txt; sleep 5;done']
+        volumeMounts:
+        - name: test-volume
+          mountPath: /input
+        env:
+        - name: HTTP_PORT
+          value: "1180"
+      volumes:
+      - name: test-volume
+        emptyDir: {}
+...
