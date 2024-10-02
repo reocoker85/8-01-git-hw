@@ -1,0 +1,65 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multi-deployment
+  labels:
+    app: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ['sh', '-c', 'while true; do echo $(uptime) > /files/test.txt; sleep 5;done']
+        volumeMounts:
+        - name: test-volume
+          mountPath: /files
+      - name: multitool
+        image: wbitt/network-multitool
+        command: ['sh', '-c', 'while true; do cat /input/test.txt; sleep 5;done']
+        volumeMounts:
+        - name: test-volume
+          mountPath: /files
+        env:
+        - name: HTTP_PORT
+          value: "1180"
+      volumes:
+      - name: test-volume
+        persistentVolumeClaim:
+          claimName: pvc-volume
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-test
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy:
+    Retain
+  storageClassName: ""
+  hostPath:
+    path: /mnt/data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-volume
+spec:
+  storageClassName: ""
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+...
