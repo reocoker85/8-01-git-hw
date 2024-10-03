@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multi-deployment
+  labels:
+    app: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: multitool
+        image: wbitt/network-multitool
+        volumeMounts:
+        - name: test-volume
+          mountPath: /files
+        env:
+        - name: HTTP_PORT
+          value: "1180"
+      volumes:
+      - name: test-volume
+        persistentVolumeClaim:
+          claimName: pvc-volume
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-volume
+spec:
+  storageClassName: "microk8s-hostpath"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+...
