@@ -1,0 +1,67 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multi-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.20
+        ports:
+        - containerPort: 80
+      - name: network-multitool
+        image: wbitt/network-multitool
+        ports:
+        - name: http-port
+          containerPort: 8080
+        env:
+        - name: HTTP_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: my-configmap
+              key: HTTP_PORT
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: multi-service
+spec:
+  selector:
+      app: myapp
+  ports:
+  - name: nginx
+    protocol: TCP
+    port: 80
+    targetPort: 80
+  - name: multitool
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multitool
+spec:
+  containers:
+  - name: multitool
+    image: wbitt/network-multitool
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-configmap
+  labels:
+        app: myapp
+data:
+  HTTP_PORT: "8080"
