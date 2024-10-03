@@ -71,7 +71,8 @@
 
 
 #### Задание 2:
-<br>[Ссылка на манифест]()
+<br>[Ссылка на манифест](./files/deployment-nfs.yaml)
 
-<br>![.png](./.png)
+<br>![.png](./img/4.png)
+<br>![.png](./img/5.png)
 
