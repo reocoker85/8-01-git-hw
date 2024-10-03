@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: multitool-port
+  labels:
+    group: deploy
+data:
+  HTTP_PORT: "8080"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-html
+  labels:
+    group: deploy
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Test Page</title>
+    </head>
+    <body>
+        <h1>TestTestTest</h1>
+    </body>
+    </html>
+...
