@@ -7,5 +7,64 @@ metadata:
     group: deploy
 data:
   index.html: |
-    TEST TEST TEST
+    <html>
+    <body>
+        <h1>TestTestTest</h1>
+    </body>
+    </html>
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-tls
+  labels:
+    group: deploy
+data:
+  tls.crt: |
+    MIIDTTCCAjWgAwIBAgIULF31cIbIs/1/2uwnGYOM7m+WkoIwDQYJKoZIhvcNAQEL
+    BQAwNjEZMBcGA1UEAwwQaW5ncmVzc3Rlc3QudGVzdDEZMBcGA1UECgwQaW5ncmVz
+    c3Rlc3QudGVzdDAeFw0yNDEwMDcyMDE0NDJaFw0yNTEwMDcyMDE0NDJaMDYxGTAX
+    BgNVBAMMEGluZ3Jlc3N0ZXN0LnRlc3QxGTAXBgNVBAoMEGluZ3Jlc3N0ZXN0LnRl
+    c3QwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDHYa41vdvcTFZI+oCX
+    RNEjoO/LZJKWD7zhMIYaExLv4v9nhfkTX1/m+g9PWsiVzrWW0p0NwntWEazjyVms
+    cOD6VDrg/3x4kg+oZngGAdQWFwkiNiPVe8jakfmS4TCC9GvRJV7Tdc95vHOUTPPq
+    yEKTxAdEiqTCidBg3NO8izC1d+AwkKdx2XVhInFzqEHckrmJNMvWxr5DQKS3tKQ6
+    cd99+iTb3fDeWLnkVfF+kddnQYE0pWE1yrFELyuxjsKRludLeoWXs1UoZ1Yic697
+    RiJWr3bZlK7FR71R5P9FXHucmKg6gXbR11JIQnjfvc/eWX9NGHPxfQfbRcN66J9G
+    wYcRAgMBAAGjUzBRMB0GA1UdDgQWBBQQgtl2fWywrQGgzDQXAKWtGYhuSzAfBgNV
+    HSMEGDAWgBQQgtl2fWywrQGgzDQXAKWtGYhuSzAPBgNVHRMBAf8EBTADAQH/MA0G
+    CSqGSIb3DQEBCwUAA4IBAQBtqcVzNldIMNR7wOiHvq9RKa3j+1xBmkLvrx37esSO
+    nP/9BnVnenkUidYLfC6TvFBVH2/T6NUzM7ZGgBlmsjQ42i2WOz2rgXPq8box6G9w
+    nX5+PHRxu8U2cVVJC0kOovXfacHDzjh7hK0ur7ZlDpmRBmt2SnPX7qayR3XCyxIo
+    jF0wzDgT4y3myMpUQpOVNDs5hBuyDx1/GuZizHRIUMjWRy32FZvZuboy0hZMXnRu
+    DNNbwwLa/HDSw12gWyqwX4G6GPkewkDGtJUsxe0YDdBvOGIQK+op72s+aWHMYl0E
+    ZtLS6KcjpA82Bh57tVYoBw999uCdBRswmuTdcvmhI//O
+  tls.key: |
+    MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDHYa41vdvcTFZI
+    +oCXRNEjoO/LZJKWD7zhMIYaExLv4v9nhfkTX1/m+g9PWsiVzrWW0p0NwntWEazj
+    yVmscOD6VDrg/3x4kg+oZngGAdQWFwkiNiPVe8jakfmS4TCC9GvRJV7Tdc95vHOU
+    TPPqyEKTxAdEiqTCidBg3NO8izC1d+AwkKdx2XVhInFzqEHckrmJNMvWxr5DQKS3
+    tKQ6cd99+iTb3fDeWLnkVfF+kddnQYE0pWE1yrFELyuxjsKRludLeoWXs1UoZ1Yi
+    c697RiJWr3bZlK7FR71R5P9FXHucmKg6gXbR11JIQnjfvc/eWX9NGHPxfQfbRcN6
+    6J9GwYcRAgMBAAECggEAClbT6GCIkrN4s/8dhPqiF8VkOflkqph1VH4mLhr4G+17
+    DhzB7lG/UOR9v8E27qHSA9i3ITwJFk0DWKqb1lfiKskMZpeJFl2Ip1Rs++7DV0Pp
+    itcg45SwNTllpkq8L8ZKAwX7lV6iHC98FOAqs+2fmjcLo2/HHHl2D1fUOQ5Ev9w4
+    fL56fMW1HDzJfR0xuK9L7l9JQvgvjVi78bEhyRFxedmavz7btYgpkWREFZeyhCQy
+    oAq3cs8CAf44I48WXWPfTnadcssuoNslnwyzdaBrlScWd/3LEuizy1RshVhIq7/V
+    WeJmf+pTyzflqJ4QmBqwEGJ1BQPlEXMx0xoJen6c6wKBgQD5y0aJcVvDSTRT73BG
+    EhLVT5WAzI6KAHN/yruaMqrrah4+5sOnSRV0mlo5CfQzWJ7lnYw360Vm9Lr9C6kl
+    94C6nPsq+0ru/cz3S5IN5dz7WmGsGdasbLGSB0uEIsgjj9Su1vgxMoQvX1jjtGxx
+    hq08i75YH2PQwUqARWL8NGaubwKBgQDMVcZQhxYXfP1Qe54aKDSX1JeGOluRls60
+    R3kPScjLrhXuQTaJ4hs6BgNK8LJFuMiXILu36+mthDQbOvPkWleBloL572ihhYCc
+    N2Obm6wG90giH20HAEg6R3T/A1VU2JA3etTCOklAssZ9ShJ97femmKLOiXOjspMt
+    V4FMtN3ifwKBgENo/hIdS1w6Jyr3lN70Ba0XGwt1KIpJcOHtvg7w2XtKWfszn11H
+    tciP1wVJkGNC6S6iA7MbhNEx/jxHp1AdqNmzf3yr8B7q0yNxe2rQu4ABdhZRqsNB
+    WfJEkbaJBGXEbOr6DGSKc22tV3mruRAx/hI2zBlP70nov8g58WqKYaN1AoGAQNH9
+    BVK1KWJXIY71iqqydG/WWZhtr/O9Qudhef4YGrTw9BHv8TGvHWsG5GESzJdf2sFh
+    i2jlSkwkE3dSI2CdXdiXWB4gfQzSzbusd5KcseEEGv8JIS1vvD0q2jL+gNnqdg8b
+    Kzo+Pq331YsH7rbs1waYrxhffNCLa9jUhbbipJUCgYA0dzcPJAnBEPI86BoXEzTk
+    FinXBCv6YO4BWi6S5+dIEoVK4o2/IHyxOj7RVKLsnS6tG1bbZHmYGoOl51B0LZGT
+    xxUpDRRFP5aYVyC/yZXYhvJECMuYnhwApKoAN2WpTIBkpw2J71QmQ2d2CB3kPhjq
+    V8I2OJJQM49jaucxeIjRww==
+type: kubernetes.io/tls
 ...

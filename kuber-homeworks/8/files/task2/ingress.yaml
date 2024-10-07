@@ -17,4 +17,8 @@ spec:
             name: nginx-service
             port:
               number: 80
+  tls:
+  - hosts:
+    - ingresstest.test
+    secretName: secret-tls
 ...
