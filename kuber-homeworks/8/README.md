@@ -42,10 +42,20 @@
 
 ------
 
-### Правила приёма работы
+#### Задание 1:
+<br>[Ссылка на deployment.yaml](./files/deployment.yaml)
+<br>[Ссылка на configmap.yaml](./files/configmap.yaml)
+<br>[Ссылка на service.yaml](./files/service.yaml)
+<br>[Ссылка на pod.yaml](./files/pod.yaml)
 
-1. Домашняя работа оформляется в своём GitHub-репозитории в файле README.md. Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
-2. Файл README.md должен содержать скриншоты вывода необходимых команд `kubectl`, а также скриншоты результатов.
-3. Репозиторий должен содержать тексты манифестов или ссылки на них в файле README.md.
+<br>![1.png](./img/1.png)
 
 ------
+
+#### Задание 2:
+<br>[Ссылка на deployment.yaml](./files/task2/deployment.yaml)
+<br>[Ссылка на configmap.yaml](./files/task2/configmap.yaml)
+<br>[Ссылка на service.yaml](./files/service.yaml)
+<br>[Ссылка на ingress.yaml](./files/ingress.yaml)
+
+<br>![2.png](./img/2.png)
