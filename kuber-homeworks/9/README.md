@@ -34,6 +34,9 @@
 
 ### Решение:
 
+Используя [Terraform](./files/terraform) и [Ansible](./files/ansible), разворачиваем инфраструктуру. 
+
+Пишем роли и все необходимые настройки для пользователя:
  [Манифест Role](./files/role.yaml)
  <br>[Манифест Role-binding](./files/role-binding.yaml)
 
