@@ -1,0 +1,53 @@
+- name: Install microk8s and make certs
+  become: yes
+  hosts: microk8s
+  tasks:
+    - name: Install package
+      community.general.snap:
+        classic: true
+        channel: 1.26
+        name: microk8s
+
+    - name: Adding user to group
+      user:
+        name: ubuntu
+        groups: microk8s
+        append: yes
+
+    - meta: reset_connection
+
+    - name: Change kube folder ownership
+      file:
+        path: /home/ubuntu/.kube
+        owner: ubuntu
+        group: ubuntu
+        state: directory
+
+    - name: Add external ip to certs
+      lineinfile:
+        path:  /var/snap/microk8s/current/certs/csr.conf.template
+        regexp: '#MOREIPS'
+        line: 'IP.3 = {{ ansible_ssh_host }}'
+        backrefs: yes
+
+    - name: Refresh certs
+      shell: microk8s refresh-certs --cert front-proxy-client.crt
+
+- name: Download microk8s config
+  hosts: microk8s
+  tasks:
+    - name: Copy config
+      shell: microk8s config > config
+
+    - name: Add external ip to config
+      lineinfile:
+        path:  /home/ubuntu/config
+        regexp: 'server.*:16443'
+        line: '    server: https://{{ ansible_ssh_host }}:16443'
+        backrefs: yes
+
+    - name: Copy config to localhost
+      fetch:
+        src: /home/ubuntu/config
+        dest: ~/.kube/
+        flat: yes
