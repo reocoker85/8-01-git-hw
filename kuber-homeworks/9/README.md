@@ -34,9 +34,14 @@
 
 ### Решение:
 
- [Role](./files/role.yaml)
- [Role-binding](./files/role-binding.yaml)
- 
+ [Манифест Role](./files/role.yaml)
+ <br>[Манифест Role-binding](./files/role-binding.yaml)
+
+ Создание сертификата и настройка конфигурационного файла kubectl для подключения.
+ ![1.png](./img/1.png)
+
+ Проверка
+ ![2.png](./img/2.png)
  
 ------
 
