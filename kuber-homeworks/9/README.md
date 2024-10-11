@@ -35,7 +35,7 @@
 ### Решение:
 
  [Role](./files/role.yaml)
- [Role-binding](./files/role-binding.yаml)
+ [Role-binding](./files/role-binding.yaml)
  
  
 ------
