@@ -36,8 +36,8 @@
 
 ### Решение:
 
-Используя [Terraform](../9/files/terraform) и [Ansible](../9/files/ansible), разворачиваем инфраструктуру. 
- 
+Используя [Terraform](../9/files/terraform) и [Ansible](../9/files/ansible), разворачиваем инфраструктуру.
+
 <br>[Настройка чата](./files/chart)
  
 Запуск чарта и результат:
