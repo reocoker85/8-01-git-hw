@@ -27,6 +27,6 @@
 
 #### Задание 1:
 
-<br>![1.png](./1.png)
-<br>![2.png](./2.png)
+<br>![1.png](./img/1.png)
+<br>![2.png](./img/2.png)
 
