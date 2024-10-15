@@ -1,0 +1,35 @@
+---
+apiVersion: networking.k8s.io/v1                                                                                                          )
+kind: NetworkPolicy
+metadata:
+  name: allow-connection-to-backend
+  namespace: app
+spec:
+  podSelector:
+    matchLabels:
+      group: backend
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          group: frontend
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-connection-to-cache
+  namespace: app
+spec:
+  podSelector:
+    matchLabels:
+      group: cache                                                                                                                        )
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          group: backend
+...
