@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+spec:
+  replicas: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 75%
+      maxUnavailable: 75%
+  selector:
+    matchLabels:
+      group: test
+  template:
+    metadata:
+      labels:
+        group: test
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.28
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx
+          mountPath: /usr/share/nginx/html
+      - name: multitool
+        image: wbitt/network-multitool
+        ports:
+        - containerPort: 8080
+        env:
+        - name: HTTP_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: multitool-port
+              key: HTTP_PORT
+      volumes:
+      - name: nginx
+        configMap:
+          name: nginx
+...

@@ -1,0 +1,24 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: multitool-port
+  labels:
+    group: test
+data:
+  HTTP_PORT: "8080"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx
+  labels:
+    group: test
+data:
+  index.html: |
+    <html>
+    <body>
+        <h1>Test</h1>
+    </body>
+    </html>
+...
