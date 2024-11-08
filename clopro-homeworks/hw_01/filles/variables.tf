@@ -52,59 +52,68 @@ variable "vpc_name" {
   description = "VPC network&subnet name"
 }
 
+###nat-instance vars
+variable "nat_instance" {
+  type = map(object({
+    nat_image       = string
+    name            = string
+    platform        = string
+    image_id        = string
+    cores           = number
+    memory          = number
+    core_fraction   = number
+    preemptible     = bool
+    nat             = bool
+    nat_internal_ip = string
+  }))
+  default = {
+    nat_vm = {
+      nat_image     = "fd80mrhj8fl2oe87o4e1"
+      name          = "nat-instance"
+      platform      = "standard-v2"
+      image_id      = "fd80mrhj8fl2oe87o4e1"
+      cores         = 2
+      memory        = 2
+      core_fraction = 5
+      preemptible   = true
+      nat           = true
+      nat_internal_ip = "192.168.10.254"
+    }
+  }
+}
 
 ###vm vars
-
-variable "nat_name" {
-  type        = string
-  default     = "nat-instance"
-  description = "Name for nat-instance"
-}
-
-variable "nat_image" {
-  type        = string
-  default     = "fd80mrhj8fl2oe87o4e1"
-  description = "OS"
-}
-
-variable "platform" {
-  type        = string
-  default     = "standard-v1"
-  description = "Platform for physical processor"
-}
-
-variable "infrastructure" {
-  type = map(number)
+variable "vm" {
+  type = map(object({
+    vm_image    = string
+    name        = string
+    platform_id = string
+    cores       = number
+    memory      = number
+    core_fraction   = number
+    preemptible     = bool
+    nat_enable  = bool
+  }))
   default = {
-    cores         = 2,
-    memory        = 2,
-    core_fraction = 5
+    public_vm = {
+      vm_image    = "fd885unga0d8prsl1acs"
+      name        = "public-vm"
+      platform_id = "standard-v2"
+      cores       = 2
+      memory      = 2
+      core_fraction = 5
+      preemptible   = true
+      nat_enable  = true
+    }
+    private_vm = {
+      vm_image    = "fd885unga0d8prsl1acs"
+      name        = "private-vm"
+      platform_id = "standard-v2"
+      cores       = 2
+      memory      = 2
+      core_fraction = 5
+      preemptible   = true
+      nat_enable  = false
+    }
   }
-  description = "VM specifications"
 }
-
-variable "preemptible" {
-  type        = bool
-  default     = true
-  description = "VM scheduling policy"
-}
-
-variable "nat_internal_ip" {
-  type        = string
-  default     = "192.168.10.254"
-}
-
-variable "nat" {
-  type        = bool
-  default     = true
-  description = "External ip"
-}
-
-#variable "metadata" {
-#  type    = object({ serial-port-enable=number, ssh-keys=string })
-#  default = {
-#    serial-port-enable = 1
-#    ssh-keys = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDMYRgvwtM56cuoHAFEMSrQSBbEUaixEMjMYTWXNm63hYwqhQRgEVywAeDgChKNly/mXj7USgjj4p65ile9oVaQYCd+bOgTSwQXPFUmv980ak83WdOdpN7ZbRY246vc4P08mfweDTDNkb2VzDehTLjzSnhw9HogrGkGjIsW6Yc1CBdVTZQnsmR3gppL4h/wRZb5/T93NplFRt3ArLopalNJ5yTvyVElTMlIMVxZZlCtcJOwNlDUcEYlbE1wuEDZiluowNkP9ifnvOxgGPCzzPfT7JmBns4sbDUuaFyr6FQfUmK9l7T5qJF0hEds0CTt3mRjIDgulfHxiPyfSNrPB1EX+UJyMbsBbhyl0xwDE7Ikkolof+GNFW4V9bUdBSzosvADVeFLe/OzAkHqRIoBW5qRCaPCWTLaoXDCbYB4v9lhEiqGyBfYdvVjU1LeecGqSB+AkgJH1KXJKwcaFBN4KuKxuSfHqivZc6G69N1bC8oYvT8zjIRB0idhZ3CL6cMMVic= vagrant@server"
-#  }
-#}
-
