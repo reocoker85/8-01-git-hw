@@ -83,37 +83,81 @@ variable "nat_instance" {
 }
 
 ###vm vars
-variable "vm" {
-  type = map(object({
-    vm_image    = string
-    name        = string
-    platform_id = string
-    cores       = number
-    memory      = number
-    core_fraction   = number
-    preemptible     = bool
-    nat_enable  = bool
-  }))
-  default = {
-    public_vm = {
-      vm_image    = "fd885unga0d8prsl1acs"
-      name        = "public-vm"
-      platform_id = "standard-v2"
+#variable "vm" {
+#  type = map(object({
+#    vm_image    = string
+#    name        = string
+#    platform_id = string
+#    cores       = number
+#    memory      = number
+#    core_fraction   = number
+#    preemptible     = bool
+#    nat_enable  = bool
+#  }))
+#  default = {
+#    public_vm = {
+#      vm_image    = "fd885unga0d8prsl1acs"
+#      name        = "public-vm"
+#      platform_id = "standard-v2"
+#      cores       = 2
+#      memory      = 2
+#      core_fraction = 5
+#      preemptible   = true
+#      nat_enable  = true
+#    }
+#    private_vm = {
+#      vm_image    = "fd885unga0d8prsl1acs"
+#      name        = "private-vm"
+#      platform_id = "standard-v2"
+#      cores       = 2
+#      memory      = 2
+#      core_fraction = 5
+#      preemptible   = true
+#      nat_enable  = false
+#    }
+#  }
+#}
+
+###for_each
+variable "each_vm" {
+  type = list(object({  vm_name     = string,
+                        hostname    = string,
+                        vm_image    = string,     
+                        platform    = string, 
+                        cores       = number, 
+                        memory      = number, 
+                        core_fr     = number,
+                        disk_size   = number, 
+                        preemptible = bool,
+                        subnet      = string, 
+                        nat         = bool }))
+  default = [
+    {
+      vm_name     = "public-vm"
+      hostname    = "public-vm"
+      vm_image    = "fd8koalti6a8443fs9km"
+      platform    = "standard-v1"
       cores       = 2
       memory      = 2
-      core_fraction = 5
-      preemptible   = true
-      nat_enable  = true
-    }
-    private_vm = {
-      vm_image    = "fd885unga0d8prsl1acs"
-      name        = "private-vm"
-      platform_id = "standard-v2"
+      core_fr     = 5
+      disk_size   = 5 
+      preemptible = true
+      subnet      = "subnet1"
+      nat         = true
+    },
+    {
+      vm_name     = "private-vm"
+      hostname    = "private-vm"
+      vm_image    = "fd8koalti6a8443fs9km"
+      platform    = "standard-v1"
       cores       = 2
       memory      = 2
-      core_fraction = 5
-      preemptible   = true
-      nat_enable  = false
+      core_fr     = 5
+      disk_size   = 5
+      preemptible = false
+      subnet      = "subnet2"
+      nat         = true
     }
-  }
+  ]
 }
+
