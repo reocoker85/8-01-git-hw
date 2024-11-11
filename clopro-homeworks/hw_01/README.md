@@ -32,7 +32,7 @@ Resource Terraform для Yandex Cloud:
 ---
 ### Решение
 
-[Манифесты terraform](./files/)
+[Манифесты terraform](./filles/)
 
 ![1.png](./image/1.png)
 ![2.png](./image/2.png)
