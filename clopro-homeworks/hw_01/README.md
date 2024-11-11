@@ -34,6 +34,6 @@ Resource Terraform для Yandex Cloud:
 
 [Манифесты terraform](./filles/)
 
-![1.png](./image/1.png)
-![2.png](./image/2.png)
-![3.png](./image/3.png)
+![1.png](./img/1.png)
+![2.png](./img/2.png)
+![3.png](./img/3.png)
