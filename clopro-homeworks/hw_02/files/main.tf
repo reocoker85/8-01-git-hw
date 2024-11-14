@@ -19,17 +19,17 @@ resource "yandex_compute_instance_group" "ig-1" {
   deletion_protection = false
   depends_on          = [yandex_resourcemanager_folder_iam_member.editor]
   instance_template {
-    platform_id = "standard-v1"
+    platform_id = var.vm.lamp.platform
     resources {
-      memory = 2
-      cores  = 2
-      core_fraction = 5
+      memory = var.vm.lamp.memory
+      cores  = var.vm.lamp.cores
+      core_fraction = var.vm.lamp.core_fr
     }
 
     boot_disk {
       mode = "READ_WRITE"
       initialize_params {
-        image_id = "fd827b91d99psvq5fjit"
+        image_id = var.vm.lamp.vm_image
       }
     }
 
@@ -38,7 +38,7 @@ resource "yandex_compute_instance_group" "ig-1" {
     network_interface {
       network_id         = "${yandex_vpc_network.my_vpc.id}"
       subnet_ids         = ["${yandex_vpc_subnet.my_subnet.id}"]
-      nat                = true
+      nat                = var.vm.lamp.nat
     }
 
     metadata = {

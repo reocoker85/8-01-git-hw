@@ -42,22 +42,23 @@ variable "vpc_name" {
 }
 
 ###vm vars
-variable "each_vm" {
-  type = list(object({
+variable "vm" {
+  type = map(object({
                         vm_image    = string,
                         platform    = string,
                         cores       = number,
                         memory      = number,
                         core_fr     = number,
                         nat         = bool }))
-  default = [
-    {
-      vm_image    = "fd8koalti6a8443fs9km"
-      platform    = "standard-v1"
-      cores       = 2
-      memory      = 2
-      core_fr     = 5
-      nat         = true
-    }
-  ]
+  default = {
+      lamp = {
+        vm_image    = "fd8koalti6a8443fs9km"
+        platform    = "standard-v1"
+        cores       = 2
+        memory      = 2
+        core_fr     = 5
+        nat         = true
+      }
+  }
+  
 }
