@@ -107,7 +107,7 @@ data "template_file" "cloudinit" {
   template = file("./cloud-init.yaml")
 
   vars = {
-    ssh_public_key     = file("~/.ssh/id_rsa.pub")
+    ssh_public_key     = file("~/.ssh/id_ed25519.pub")
   }
 
 }
@@ -122,4 +122,3 @@ resource "yandex_vpc_subnet" "my_subnet" {
   network_id     = "${yandex_vpc_network.my_vpc.id}"
   v4_cidr_blocks = var.default_cidr
 }
-
