@@ -32,8 +32,10 @@
  - 
 ## Решение 1-3
 
-Все
+[Манифесты terraform](./files/lb/)
 
 4. (дополнительно)* Создать Application Load Balancer с использованием Instance group и проверкой состояния.
 
 ## Решение 4
+
+[Манифесты terraform](./files/alb/)
