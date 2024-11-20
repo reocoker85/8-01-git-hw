@@ -22,5 +22,5 @@
 [Манифесты terraform](./files/)
 
 
-![1](./images/1.png)
-![2](./images/2.png)
+![1](./image/1.png)
+![2](./image/2.png)
