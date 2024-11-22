@@ -1,3 +1,4 @@
+
 resource "yandex_mdb_mysql_cluster" "cluster_mysql" {
   name                = var.cluster.mysql.name
   environment         = var.cluster.mysql.environment
@@ -11,12 +12,22 @@ resource "yandex_mdb_mysql_cluster" "cluster_mysql" {
     disk_size          = var.cluster.mysql.disk_size
   }
 
-  host {
-    zone             = var.default_zone
-    subnet_id        = yandex_vpc_subnet.my_subnet.id
-    assign_public_ip = var.cluster.mysql.public_ip
-#    priority         = <приоритет_при_выборе_хоста-мастера>
-#    backup_priority  = <приоритет_для_резервного_копирования>
+  dynamic "host" {
+    for_each = toset(var.zones)
+    content {
+             zone             = host.value
+             subnet_id        = element(yandex_vpc_subnet.private[*], index(var.zones,host.value))
+             assign_public_ip = var.cluster.mysql.public_ip
+    }
+  }
+  
+  maintenance_window {
+    type = var.cluster.mysql.type
+  }
+ 
+  backup_window_start {
+    hours   = var.cluster.mysql.back_h
+    minutes = var.cluster.mysql.back_m
   }
 }
 
@@ -35,12 +46,16 @@ resource "yandex_mdb_mysql_user" "reocoker" {
   }
 }
 
-resource "yandex_vpc_network" "my_vpc" { name = var.vpc_name }
+resource "yandex_vpc_network" "my_vpc" {
+  name = var.vpc_name
+}
 
-resource "yandex_vpc_subnet" "my_subnet" {
-  name           = var.subnet_name
-  zone           = var.default_zone
+resource "yandex_vpc_subnet" "private" {
+
+  for_each = toset(var.zones)
+
+  name           = "${var.subnet_name}-${each.value}"
+  zone           = each.value
   network_id     = yandex_vpc_network.my_vpc.id
   v4_cidr_blocks = var.default_cidr
 }
-

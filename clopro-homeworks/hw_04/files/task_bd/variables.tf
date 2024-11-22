@@ -25,7 +25,7 @@ variable "default_zone" {
 
 variable "subnet_name" {
   type        = string
-  default     = "my_subnet"
+  default     = "private"
   description = "Name of public subnet"
 }
 
@@ -33,6 +33,11 @@ variable "default_cidr" {
   type        = list(string)
   default     = ["192.168.10.0/24"]
   description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
+}
+
+variable "zones" {
+  type = list(string)
+  default = ["ru-central1-a","ru-central1-b","ru-central1-d"]
 }
 
 variable "vpc_name" {
@@ -51,7 +56,10 @@ variable "cluster" {
                         resource_id  = string,
                         disk_type_id = string,
                         disk_size    = number,
-                        public_ip    = bool
+                        public_ip    = bool,
+                        type         = string,
+                        back_h       = number,
+                        back_m       = number
   }))
   default = {
              mysql = {
@@ -63,6 +71,9 @@ variable "cluster" {
                         disk_type_id = "network-hdd"
                         disk_size    = 20
                         public_ip    = false
+                        type         = "ANYTIME"
+                        back_h       = 23
+                        back_m       = 59
              }
   }
 }
@@ -89,25 +100,4 @@ variable "bd" {
   }
 }
 
-
-###vm vars
-#variable "vm" {
-#  type = map(object({
-#                        vm_image    = string,
-#                        platform    = string,
-#                        cores       = number,
-#                        memory      = number,
-#                        core_fr     = number,
-#                        nat         = bool }))
-#  default = {
-#      lamp = {
-#        vm_image    = "fd827b91d99psvq5fjit"
-#        platform    = "standard-v1"
-#        cores       = 2
-#        memory      = 2
-#        core_fr     = 5
-#        nat         = true
-#      }
-#  }
-#  
-#}
+    
