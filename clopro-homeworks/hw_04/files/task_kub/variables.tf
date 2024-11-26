@@ -45,58 +45,31 @@ variable "vpc_name" {
   description = "VPC network&subnet name"
 }
 
-###cluster vars
-variable "cluster" {
-  type = object({
-    mysql = object({
-      name         = string
-      environment  = string
-      version      = string
-      del_protec   = bool
-      resource_id  = string
-      disk_type_id = string
-      disk_size    = number
-      public_ip    = bool
-      type         = string
-      back_h       = number
-      back_m       = number
-    })
-  })
-  default = {
-    mysql = {
-      name         = "cluster_mysql"
-      environment  = "PRESTABLE"
-      version      = "8.0"
-      del_protec   = false
-      resource_id  = "b1.medium"
-      disk_type_id = "network-hdd"
-      disk_size    = 20
-      public_ip    = false
-      type         = "ANYTIME"
-      back_h       = 23
-      back_m       = 59
+variable "security_group_ingress" {
+  type = list(object(
+    {
+      protocol          = string
+      description       = string
+      predefined_target = optional(string)
+      v4_cidr_blocks    = optional(list(string))
+      port              = optional(number)
+      from_port         = optional(number)
+      to_port           = optional(number)
     }
-  }
+  ))
+  default = []
 }
-
-###bd vars
-variable "bd" {
-  type = object({
-    netology = object({
-      name      = string
-      user_name = string
-      password  = string
-      roles     = string
-    })
-  })
-  default = {
-    netology = {
-      name      = "netology_db"
-      user_name = "reo"
-      password  = "qwer1234"
-      roles     = "ALL"
+variable "security_group_egress" {
+  type = list(object(
+    {
+      protocol       = string
+      description    = string
+      v4_cidr_blocks = list(string)
+      port           = optional(number)
+      from_port      = optional(number)
+      to_port        = optional(number)
     }
-  }
+  ))
+  default = []
 }
-
 

@@ -1,5 +1,5 @@
 resource "yandex_kubernetes_cluster" "k8s-regional" {
-  name = "k8s-regional"
+  name       = "k8s-regional"
   network_id = yandex_vpc_network.my_vpc.id
   master {
     master_location {
@@ -35,9 +35,9 @@ resource "yandex_kubernetes_node_group" "my_node_group" {
   description = "description"
   version     = "1.27"
 
- # labels = {
- #   "key" = "value"
- # }
+  # labels = {
+  #   "key" = "value"
+  # }
 
   instance_template {
     platform_id = "standard-v1"
@@ -76,7 +76,7 @@ resource "yandex_kubernetes_node_group" "my_node_group" {
 
   allocation_policy {
     location {
-      zone = "ru-central1-b" 
+      zone = "ru-central1-b"
     }
   }
 }
@@ -86,21 +86,21 @@ resource "yandex_vpc_network" "my_vpc" {
 }
 
 resource "yandex_vpc_subnet" "mysubnet-a" {
-  name = "mysubnet-a"
+  name           = "mysubnet-a"
   v4_cidr_blocks = ["10.5.0.0/16"]
   zone           = "ru-central1-a"
   network_id     = yandex_vpc_network.my_vpc.id
 }
 
 resource "yandex_vpc_subnet" "mysubnet-b" {
-  name = "mysubnet-b"
+  name           = "mysubnet-b"
   v4_cidr_blocks = ["10.6.0.0/16"]
   zone           = "ru-central1-b"
   network_id     = yandex_vpc_network.my_vpc.id
 }
 
 resource "yandex_vpc_subnet" "mysubnet-d" {
-  name = "mysubnet-d"
+  name           = "mysubnet-d"
   v4_cidr_blocks = ["10.7.0.0/16"]
   zone           = "ru-central1-d"
   network_id     = yandex_vpc_network.my_vpc.id
@@ -150,45 +150,27 @@ resource "yandex_vpc_security_group" "regional-k8s-sg" {
   name        = "regional-k8s-sg"
   description = "Правила группы обеспечивают базовую работоспособность кластера Managed Service for Kubernetes. Примените ее к кластеру и группам узлов."
   network_id  = yandex_vpc_network.my_vpc.id
-  ingress {
-    protocol          = "TCP"
-    description       = "Правило разрешает проверки доступности с диапазона адресов балансировщика нагрузки. Нужно для работы отказоустойчивого кластера Managed Service for Kubernetes и сервисов балансировщика."
-    predefined_target = "loadbalancer_healthchecks"
-    from_port         = 0
-    to_port           = 65535
+  dynamic "ingress" {
+    for_each = var.security_group_ingress
+    content {
+      protocol          = lookup(ingress.value, "protocol", null)
+      description       = lookup(ingress.value, "description", null)
+      port              = lookup(ingress.value, "port", null)
+      from_port         = lookup(ingress.value, "from_port", null)
+      to_port           = lookup(ingress.value, "to_port", null)
+      v4_cidr_blocks    = lookup(ingress.value, "v4_cidr_blocks", null)
+      predefined_target = lookup(ingress.value, "predefined_target", null)
+    }
   }
-  ingress {
-    protocol          = "ANY"
-    description       = "Правило разрешает взаимодействие мастер-узел и узел-узел внутри группы безопасности."
-    predefined_target = "self_security_group"
-    from_port         = 0
-    to_port           = 65535
-  }
-  ingress {
-    protocol          = "ANY"
-    description       = "Правило разрешает взаимодействие под-под и сервис-сервис. Укажите подсети вашего кластера Managed Service for Kubernetes и сервисов."
-    v4_cidr_blocks    = concat(yandex_vpc_subnet.mysubnet-a.v4_cidr_blocks, yandex_vpc_subnet.mysubnet-b.v4_cidr_blocks, yandex_vpc_subnet.mysubnet-d.v4_cidr_blocks)
-    from_port         = 0
-    to_port           = 65535
-  }
-  ingress {
-    protocol          = "ICMP"
-    description       = "Правило разрешает отладочные ICMP-пакеты из внутренних подсетей."
-    v4_cidr_blocks    = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
-  }
-  ingress {
-    protocol          = "TCP"
-    description       = "Правило разрешает входящий трафик из интернета на диапазон портов NodePort. Добавьте или измените порты на нужные вам."
-    v4_cidr_blocks    = ["0.0.0.0/0"]
-    from_port         = 30000
-    to_port           = 32767
-  }
-  egress {
-    protocol          = "ANY"
-    description       = "Правило разрешает весь исходящий трафик. Узлы могут связаться с Yandex Container Registry, Yandex Object Storage, Docker Hub и т. д."
-    v4_cidr_blocks    = ["0.0.0.0/0"]
-    from_port         = 0
-    to_port           = 65535
+  dynamic "egress" {
+    for_each = var.security_group_egress
+    content {
+      protocol       = lookup(egress.value, "protocol", null)
+      description    = lookup(egress.value, "description", null)
+      port           = lookup(egress.value, "port", null)
+      from_port      = lookup(egress.value, "from_port", null)
+      to_port        = lookup(egress.value, "to_port", null)
+      v4_cidr_blocks = lookup(egress.value, "v4_cidr_blocks", null)
+    }
   }
 }
-
