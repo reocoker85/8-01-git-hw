@@ -14,31 +14,31 @@ security_group_ingress = [
     to_port           = 65535
   },
   {
-    protocol          = "ANY"
-    description       = "Правило разрешает взаимодействие под-под и сервис-сервис. Укажите подсети вашего кластера Managed Service for Kubernetes и сервисов."
-    v4_cidr_blocks    = ["0.0.0.0/0"]
-    from_port         = 0
-    to_port           = 65535
+    protocol       = "ANY"
+    description    = "Правило разрешает взаимодействие под-под и сервис-сервис. Укажите подсети вашего кластера Managed Service for Kubernetes и сервисов."
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    from_port      = 0
+    to_port        = 65535
   },
   {
-    protocol          = "ICMP"
-    description       = "Правило разрешает отладочные ICMP-пакеты из внутренних подсетей."
-    v4_cidr_blocks    = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+    protocol       = "ICMP"
+    description    = "Правило разрешает отладочные ICMP-пакеты из внутренних подсетей."
+    v4_cidr_blocks = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
   },
   {
-    protocol          = "TCP"
-    description       = "Правило разрешает входящий трафик из интернета на диапазон портов NodePort. Добавьте или измените порты на нужные вам."
-    v4_cidr_blocks    = ["0.0.0.0/0"]
-    from_port         = 30000
-    to_port           = 32767
+    protocol       = "TCP"
+    description    = "Правило разрешает входящий трафик из интернета на диапазон портов NodePort. Добавьте или измените порты на нужные вам."
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    from_port      = 30000
+    to_port        = 32767
   }
 ]
 security_group_egress = [
   {
-    protocol          = "ANY"
-    description       = "Правило разрешает весь исходящий трафик. Узлы могут связаться с Yandex Container Registry, Yandex Object Storage, Docker Hub и т. д."
-    v4_cidr_blocks    = ["0.0.0.0/0"]
-    from_port         = 0
-    to_port           = 65535
+    protocol       = "ANY"
+    description    = "Правило разрешает весь исходящий трафик. Узлы могут связаться с Yandex Container Registry, Yandex Object Storage, Docker Hub и т. д."
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    from_port      = 0
+    to_port        = 65535
   }
 ]

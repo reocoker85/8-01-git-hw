@@ -2,17 +2,12 @@ resource "yandex_kubernetes_cluster" "k8s-regional" {
   name       = "k8s-regional"
   network_id = yandex_vpc_network.my_vpc.id
   master {
-    master_location {
-      zone      = yandex_vpc_subnet.mysubnet-a.zone
-      subnet_id = yandex_vpc_subnet.mysubnet-a.id
-    }
-    master_location {
-      zone      = yandex_vpc_subnet.mysubnet-b.zone
-      subnet_id = yandex_vpc_subnet.mysubnet-b.id
-    }
-    master_location {
-      zone      = yandex_vpc_subnet.mysubnet-d.zone
-      subnet_id = yandex_vpc_subnet.mysubnet-d.id
+    dynamic "master_location" {
+      for_each = toset(var.zones)
+      content {
+        zone      = master_location.value
+        subnet_id = element(yandex_vpc_subnet.public[*].id, index(var.zones, master_location.value))
+      }
     }
     security_group_ids = [yandex_vpc_security_group.regional-k8s-sg.id]
   }
@@ -35,16 +30,12 @@ resource "yandex_kubernetes_node_group" "my_node_group" {
   description = "description"
   version     = "1.27"
 
-  # labels = {
-  #   "key" = "value"
-  # }
-
   instance_template {
     platform_id = "standard-v1"
 
     network_interface {
       nat        = false
-      subnet_ids = [yandex_vpc_subnet.mysubnet-b.id]
+      subnet_ids = [yandex_vpc_subnet.public[1].id]
     }
 
     resources {
@@ -85,24 +76,11 @@ resource "yandex_vpc_network" "my_vpc" {
   name = var.vpc_name
 }
 
-resource "yandex_vpc_subnet" "mysubnet-a" {
-  name           = "mysubnet-a"
-  v4_cidr_blocks = ["10.5.0.0/16"]
-  zone           = "ru-central1-a"
-  network_id     = yandex_vpc_network.my_vpc.id
-}
-
-resource "yandex_vpc_subnet" "mysubnet-b" {
-  name           = "mysubnet-b"
-  v4_cidr_blocks = ["10.6.0.0/16"]
-  zone           = "ru-central1-b"
-  network_id     = yandex_vpc_network.my_vpc.id
-}
-
-resource "yandex_vpc_subnet" "mysubnet-d" {
-  name           = "mysubnet-d"
-  v4_cidr_blocks = ["10.7.0.0/16"]
-  zone           = "ru-central1-d"
+resource "yandex_vpc_subnet" "public" {
+  count          = length(var.zones)
+  name           = "${var.public_subnet_name}-${var.zones[count.index]}"
+  v4_cidr_blocks = [cidrsubnet(var.default_cidr[0], 2, count.index)]
+  zone           = var.zones[count.index]
   network_id     = yandex_vpc_network.my_vpc.id
 }
 

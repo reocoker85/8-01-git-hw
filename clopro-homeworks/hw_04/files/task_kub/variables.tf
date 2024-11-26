@@ -17,15 +17,15 @@ variable "folder_id" {
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
 }
 
-variable "subnet_name" {
+variable "public_subnet_name" {
   type        = string
-  default     = "private"
+  default     = "public"
   description = "Name of public subnet"
 }
 
 variable "default_cidr" {
   type        = list(string)
-  default     = ["192.168.0.0/16"]
+  default     = ["10.5.0.0/16"]
   description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
 }
 
@@ -36,7 +36,7 @@ variable "default_zone" {
 
 variable "zones" {
   type    = list(string)
-  default = ["ru-central1-a", "ru-central1-b"]
+  default = ["ru-central1-a", "ru-central1-b", "ru-central1-d"]
 }
 
 variable "vpc_name" {
