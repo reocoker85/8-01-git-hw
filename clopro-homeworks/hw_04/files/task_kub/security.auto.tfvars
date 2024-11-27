@@ -16,7 +16,7 @@ security_group_ingress = [
   {
     protocol       = "ANY"
     description    = "Правило разрешает взаимодействие под-под и сервис-сервис. Укажите подсети вашего кластера Managed Service for Kubernetes и сервисов."
-    v4_cidr_blocks = ["0.0.0.0/0"]
+    v4_cidr_blocks = ["10.5.0.0/18", "10.5.64.0/18", "10.5.128.0/18"]
     from_port      = 0
     to_port        = 65535
   },

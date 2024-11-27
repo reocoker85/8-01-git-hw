@@ -45,6 +45,7 @@ variable "vpc_name" {
   description = "VPC network&subnet name"
 }
 
+###security_group vars
 variable "security_group_ingress" {
   type = list(object(
     {
@@ -73,3 +74,60 @@ variable "security_group_egress" {
   default = []
 }
 
+###node_group vars
+variable "node_group" {
+  type = object({
+    mygroup = object({
+      name           = string
+      version        = string
+      inst_platform  = string
+      nat            = bool
+      memory         = number
+      core_fr        = number
+      cores          = number
+      disk_size      = number
+      disk_type      = string
+      preemptible    = bool
+      cont_run_type  = string
+      auto_scale_min = number
+      auto_scale_max = number
+      auto_scale_ini = number
+    })
+  })
+  default = {
+    mygroup = {
+      name           = "my-node-group"
+      version        = "1.27"
+      inst_platform  = "standard-v1"
+      nat            = false
+      memory         = 2
+      core_fr        = 20
+      cores          = 2
+      disk_type      = "network-hdd"
+      disk_size      = 30
+      preemptible    = true
+      cont_run_type  = "containerd"
+      auto_scale_min = 3
+      auto_scale_max = 6
+      auto_scale_ini = 3
+    }
+  }
+}
+
+###kms-key vars
+variable "kms_key" {
+  type = object({
+    key = object({
+      name              = string
+      default_algorithm = string
+      rotation_period   = string
+    })
+  })
+  default = {
+    key = {
+      name              = "kms-key"
+      default_algorithm = "AES_128"
+      rotation_period   = "8760h"
+    }
+  }
+}

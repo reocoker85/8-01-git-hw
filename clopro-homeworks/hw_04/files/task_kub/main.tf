@@ -23,55 +23,56 @@ resource "yandex_kubernetes_cluster" "k8s-regional" {
     key_id = yandex_kms_symmetric_key.kms-key.id
   }
 }
-
-resource "yandex_kubernetes_node_group" "my_node_group" {
+/*
+resource "yandex_kubernetes_node_group" "mygroup" {
   cluster_id  = yandex_kubernetes_cluster.k8s-regional.id
-  name        = "name"
-  description = "description"
-  version     = "1.27"
+  name        = var.node_group.mygroup.name
+  description = "autoscale node group"
+  version     = var.node_group.mygroup.version
 
   instance_template {
-    platform_id = "standard-v1"
+    platform_id = var.node_group.mygroup.inst_platform
 
     network_interface {
-      nat        = false
+      nat        = var.node_group.mygroup.nat
       subnet_ids = [yandex_vpc_subnet.public[1].id]
     }
 
     resources {
-      memory = 2
-      cores  = 2
+      memory = var.node_group.mygroup.memory
+      core_fraction = var.node_group.mygroup.core_fr
+      cores  = var.node_group.mygroup.cores
     }
 
     boot_disk {
-      type = "network-hdd"
-      size = 30
+      type = var.node_group.mygroup.disk_type
+      size = var.node_group.mygroup.disk_size
     }
 
     scheduling_policy {
-      preemptible = true
+      preemptible = var.node_group.mygroup.preemptible
     }
 
     container_runtime {
-      type = "containerd"
+      type = var.node_group.mygroup.cont_run_type
     }
   }
 
   scale_policy {
     auto_scale {
-      min     = 3
-      max     = 6
-      initial = 3
+      min     = var.node_group.mygroup.auto_scale_min
+      max     = var.node_group.mygroup.auto_scale_max
+      initial = var.node_group.mygroup.auto_scale_ini
     }
   }
 
   allocation_policy {
     location {
-      zone = "ru-central1-b"
+      zone = element(var.zones, 1)
     }
   }
 }
-
+*/
 resource "yandex_vpc_network" "my_vpc" {
   name = var.vpc_name
 }
@@ -119,9 +120,9 @@ resource "yandex_resourcemanager_folder_iam_member" "encrypterDecrypter" {
 
 resource "yandex_kms_symmetric_key" "kms-key" {
   # Ключ Yandex Key Management Service для шифрования важной информации, такой как пароли, OAuth-токены и SSH-ключи.
-  name              = "kms-key"
-  default_algorithm = "AES_128"
-  rotation_period   = "8760h" # 1 год.
+  name              = var.kms_key.key.name
+  default_algorithm = var.kms_key.key.default_algorithm
+  rotation_period   = var.kms_key.key.rotation_period
 }
 
 resource "yandex_vpc_security_group" "regional-k8s-sg" {
