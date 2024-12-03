@@ -40,8 +40,10 @@
 ## Решение 1
 
 [Манифесты terraform](./files/task_bd/)
+
 <br>В зоне "ru-central1-d" развернуть нельзя. 
 ![1](./images/1.png)
+
 <br>Все остальные характеристики по тз ниже:
 ![2](./images/2.png)
 ![3](./images/3.png)
@@ -52,3 +54,9 @@
 ## Решение 2
 
 [Манифесты terraform](./files/task_kub/)
+
+![6](./images/6.png)
+![7](./images/7.png)
+![8](./images/8.png)
+![9](./images/9.png)
+
