@@ -31,6 +31,12 @@ security_group_ingress = [
     v4_cidr_blocks = ["0.0.0.0/0"]
     from_port      = 30000
     to_port        = 32767
+  },
+  {
+    protocol       = "TCP"
+    description    = "The rule allows connection to Kubernetes API on 443 port from specified network"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    port           = 443
   }
 ]
 security_group_egress = [

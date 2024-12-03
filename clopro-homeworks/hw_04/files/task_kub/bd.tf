@@ -37,6 +37,7 @@ resource "yandex_mdb_mysql_database" "netology_db" {
 }
 
 resource "yandex_mdb_mysql_user" "reocoker" {
+  depends_on = [ yandex_mdb_mysql_database.netology_db ]
   cluster_id = yandex_mdb_mysql_cluster.cluster_mysql.id
   name       = var.bd.netology.user_name
   password   = var.bd.netology.password
